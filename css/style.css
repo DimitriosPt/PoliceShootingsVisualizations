@@ -1,45 +1,53 @@
 @import url(https://fonts.googleapis.com/css?family=Montserrat);
 body {
 font-family: 'Montserrat', sans-serif;
+  font-size: large;
 }
 @font-face {
 font-family: 'Montserrat', sans-serif;
+  font-size: xx-large;
 }
 
 .crumbs {
   width: 100%;
   height: 50px;
-  font: 16px Montserrat, sans-serif;
+  font: 40px Montserrat, sans-serif;
   align-self: flex-start;
-  background: lightgrey;
+  background: transparent;
+  justify-content: center;
 }
 .crumbs .crumb {
   position: relative;
   display: inline-block;
+  background: olivedrab;
+  font-size: xx-large;
+  font-weight: bolder;
   padding: 1em;
 }
 .crumbs .crumb:not(:last-of-type):before {
   content: '';
   display: block;
   position: absolute;
-  border-top: 5px solid transparent;
-  border-left: 10px solid #658ed0;
-  border-bottom: 5px solid transparent;
+  /*border-top: 5px solid transparent;
+  border-left: 10px solid transparent;
+  border-bottom: 5px solid transparent;*/
+  justify-content: left;
   top: 21px;
   right: -5px;
 }
 
 .container {
-  width: 100%;
-  height: 100vh;
+  /*width: 100%;
+  height: 100vh;*/
   display: flex;
-  justify-content: center;
-  background: whitesmoke;
+  justify-content: left;
+  background: transparent;
 }
 .container .chart {
   width: 500px;
   height: 500px;
-  align-self: center;
+  align-self: normal;
+  justify-content: left;
 }
 
 /*********************

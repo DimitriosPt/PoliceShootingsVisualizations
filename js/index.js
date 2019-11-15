@@ -1,12 +1,18 @@
 // Add test data here (or make api call for data)
 var data = {
-"name":"States",
+            "name":"States",
 			"color":"#FFF123",
-  "children":[
+            "children":[
 				{"name": "California",
 				"color":"#006BB6",
 		 		 "children": [
-					 {"name": "Black", "value": 1,"color":"#3D0C02"},
+					 {"name": "Black", "value": 10,"color":"#3D0C02",
+                        "children":[
+                            {"name": "Unarmed", "value": 8, "color": "#ff0000"},
+                            {"name": "Armed", "value": 1,  "color": "#00FF00"},
+                            {"name": "Mental", "value": 0,  "color": "#9B870C"}
+                        ]
+                     },
 					 {"name": "White", "value": 1,"color":"#FFE0BD"},
 					 {"name": "Hispanic", "value": 1,"color":"#E0AC69"},
 					 {"name": "Asian", "value": 1,"color":"#FFDBAC"}
@@ -15,7 +21,13 @@ var data = {
 				{"name": "Nevada",
 				"color":"#00843D",
 		 		 "children": [
-                     {"name": "Black", "value": 1,"color":"#3D0C02"},
+                     {"name": "Black", "value": 100,"color":"#3D0C02",
+                         "children":[
+                             {"name": "Unarmed", "value": 8, "color": "#ff0000"},
+                             {"name": "Armed", "value": 1,  "color": "#00FF00"},
+                             {"name": "Mental", "value": 1,  "color": "#9B870C"}
+                         ]
+                     },
                      {"name": "White", "value": 1,"color":"#FFE0BD"},
                      {"name": "Hispanic", "value": 1,"color":"#E0AC69"},
                      {"name": "Asian", "value": 1,"color":"#FFDBAC"}
@@ -67,10 +79,45 @@ var data = {
                      {"name": "Asian", "value": 5,"color":"#FFDBAC"}
 					]
 				}
-	]
+	        ]
 };
+
+data = {
+    "name":"States",
+    "color":"#FFF123",
+    "children":[
+        {"name": "California",
+            "color":"#006BB6",
+            "children": [{"name": "Black", "value": 10,"color":"#3D0C02"}]
+        },
+        {"name": "Nevada",
+            "color":"#00843D",
+            "children": [{"name": "Black", "value": 10,"color":"#3D0C02"}]
+        }]
+}
+console.log("Hard coded data",data);
 let shootings = new Request("./data/policeShootingsJSON.json");
-var shoot;
+var newData = {
+    "name":"States",
+    "color":"#FFF123",
+    "children":[
+        {"name": "California",
+            "color":"#006BB6",
+            "children": [
+                {"name": "Black", "value": 10,"color":"#3D0C02",
+                    "children":[
+                        {"name": "Unarmed", "value": 8, "color": "#ff0000"},
+                        {"name": "Armed", "value": 1,  "color": "#00FF00"},
+                        {"name": "Mental", "value": 1,  "color": "#9B870C"}
+                    ]
+                },
+                {"name": "White", "value": 1,"color":"#FFE0BD"},
+                {"name": "Hispanic", "value": 1,"color":"#E0AC69"},
+                {"name": "Asian", "value": 1,"color":"#FFDBAC"}
+            ]
+        }
+    ]
+};
 
 /*
 * Color codes for the races
@@ -87,12 +134,24 @@ var shoot;
 * Hex: #FFDBAC
 *
 * */
+//Color generator
+Colors = {};
+Colors.random = function() {
+    var result;
+    var count = 0;
+    for (var prop in this.names)
+        if (Math.random() < 1/++count)
+            result = prop;
+    return result;
+};
+
 
 //Reading in the CSV file
+/*
 d3.csv("./data/fatal-police-shootings-data.csv", function (data) {
     console.log("d3 CSV", data);
-});
-
+});*/
+var shoot;
 
 var my_json = (function () {
     var json = null;
@@ -106,23 +165,164 @@ var my_json = (function () {
         }
     });
     return json;
-})();
+})();/*
 console.log("My Json Test")
-console.log(my_json);
+console.log(my_json);*/
+console.log("All my_json ",my_json);
+
+function randomColor(){
+    return '#'+(0x1000000+(Math.random())*0xffffff).toString(16).substr(1,6);
+}
+
+function raceConverter(race){
+    if(race === 'A'){
+        return "Asian"
+    }
+    if(race === 'B'){
+        return "Black"
+    }
+    if(race === 'H'){
+        return "Hispanic"
+    }
+    if(race === 'W'){
+        return "White"
+    }
+    if(race === 'O'){
+        return "Other"
+    }
+    if(race === 'N'){
+        return "None"
+    }
+    return race;
+
+}
+
+function colorConverter(race){
+    if(race === 'A'){
+        return "#FFDBAC"
+    }
+    if(race === 'B'){
+        return "#3D0C02"
+    }
+    if(race === 'H'){
+        return "#E0AC69"
+    }
+    if(race === 'W'){
+        return "#FFE0BD"
+    }
+    if(race === 'O'){
+        return "#FFFFFF"
+    }
+    if(race === 'N'){
+        return "#FFFFFF"
+    }
+    return randomColor();
+}
+
+function armedConverter(armed){
+    if(armed === "gun"){
+        return "#FF0000";
+    }
+    if(armed === "unarmed"){
+        return "#00FF00"
+    }
+    if(armed === undefined){
+        return "#00FF00"
+    }
+    if(armed === "toy weapon"){
+        return "#00FF22"
+    }
+    return randomColor();
+}
+
+function builder(){
+   // let output = {name: "States", color: "#FFF123", children:[], depth:0, dx:1, dy:0.25, value:4668,x:0, y:0};
+    let output = {name: "States", color: "#FFF123", children:[]};
+
+    for(const i in my_json){
+        let State = output.children.find(e=>e.name === my_json[i].state);
+
+
+        if(State === undefined){
+            //console.log("State is ",my_json[i].state, i);
+            State = {name: my_json[i].state, color: randomColor(), children:[]};
+            output.children.push(State);
+        }
+
+        let Race = State.children.find(e=>e.name === raceConverter(my_json[i].race));
+
+        if(Race === undefined){
+            Race = {name: raceConverter(my_json[i].race), value: 1, color: colorConverter(my_json[i].race), children:[]};
+            State.children.push(Race);
+        }
+        else {
+            Race.value++;
+        }
+        //if(my_json[i].armed != undefined) {
+            let armed = Race.children.find(e => e.name === my_json[i].armed);
+            if (armed === undefined) {
+                armed = {name: my_json[i].armed, value: 1, color: armedConverter(my_json[i].armed)};
+                Race.children.push(armed);
+            }
+            else{
+                Race.children.value++;
+            }
+        //}
+    }
+    return output;
+}
+
+console.log("Builder JSON",builder());
+data = builder();
+console.log("Data ", data);
+//data = builder();
+
+/*var testing = function(){
+      var builder = ["name: States", "color : #FFF123", children[
+
+          ]];
+};
+
+var viewData = {
+    my_json : []
+};
+
+function onGeneratedRow(columnsResult)
+{
+    var jsonData = {};
+    columnsResult.forEach(function(column)
+    {
+        var columnName = column.metadata.colName;
+        jsonData[columnName] = column.value;
+    });
+    viewData.employees.push(jsonData);
+}*/
+var revised_shootings = {
+    "name":"States",
+    "color":"#FFF123",
+    "children":[
+    {"name": "California",
+        "color":"#006BB6",
+        "children": [
+            {"name": "Black", "value": 10,"color":"#3D0C02"},
+            {"name": "White", "value": 1,"color":"#FFE0BD"},
+            {"name": "Hispanic", "value": 1,"color":"#E0AC69"},
+            {"name": "Asian", "value": 1,"color":"#FFDBAC"}
+        ]
+    },
+    ]
+};
+console.log("Revised Shootings Test", revised_shootings);
+/*var formatter;
+my_json.forEach(function (person) {
+    formatter =
+    revised_shootings.push(formatter);
+})*/
+
 
 
 //Using a fetch to read in the json file
 // May need to use this method when the data file is online
-fetch(shootings)
-	.then(function(resp){
-		return resp.json();
-	})
-	.then(function (data) {
-		console.log("JSON DATA", data);
-		shoot = data;
-	});
-	console.log("shooting variable", shootings);
-	console.log("Shootings", shoot);
 
 // This can control the size of the starburst
 // Size/state related variables
@@ -180,9 +380,10 @@ burst_group.select("svg").append("text")
    .attr("class", "total")
    .attr("text-anchor", "middle")
 	 .attr('font-size', '4em')
-	 .attr('y', 20);
+	 .attr('y', 20)
+    .style("font-size", "40px");
 
-d3.select(".total").text("Shootings Per State");
+d3.select(".total").text("Shootings Per State1").style("font-size", "40px");
 
 
 
@@ -208,7 +409,7 @@ var arcs = burst_group.selectAll("path.ark")
 
 	.attr('stroke', '#fff') // <-- THIS (for arc padding)
     .attr('stroke-width', '1.2') // <-- THIS (for arc padding) Stroke controls the width of the line between the attributes
-	.text(function(d) { if (d.depth>0){return d.name;}else{return "Shootings Per State";} })
+	.text(function(d) { if (d.depth>0){return d.name;}else{return "Shootings Per State2";} })
     .on("click", click)
     .on('mouseover', function(d) {
       if (d.depth > 0) {
@@ -217,7 +418,7 @@ var arcs = burst_group.selectAll("path.ark")
 
         update_crumbs(d);
 
-		console.log(names[0]);
+		//console.log(names[0]);
 
 		d3.select("#name")
       .text(names[0]);
@@ -227,11 +428,11 @@ var arcs = burst_group.selectAll("path.ark")
 		
       }
 	else{
-		var names = ['Shootings Per State'];
+		var names = ['Shootings Per State3'];
         fade(arcs, 0.3, names, 'name');
 
 		d3.select("#name")
-		.style("font-weight","bold")
+		.style("font-weight","bold","font-size","50px")
       .text(names[0]);
 
 		d3.select("#explanation")
