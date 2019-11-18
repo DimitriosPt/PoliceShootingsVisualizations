@@ -265,7 +265,8 @@ function builder(){
                 Race.children.push(armed);
             }
             else{
-                Race.children.value++;
+                // Race.children.value++;
+                armed.value++;
             }
         //}
     }
@@ -383,6 +384,13 @@ burst_group.select("svg").append("text")
 	 .attr('y', 20)
     .style("font-size", "40px");
 
+svg.append("text")
+    .attr("class", "total")
+    .attr("text-anchor", "middle")
+    .attr('font-size', '4em')
+    .attr('y', 20)
+    .text(total);
+
 d3.select(".total").text("Shootings Per State1").style("font-size", "40px");
 
 
@@ -428,7 +436,7 @@ var arcs = burst_group.selectAll("path.ark")
 		
       }
 	else{
-		var names = ['Shootings Per State3'];
+		var names = ['Shootings By State'];
         fade(arcs, 0.3, names, 'name');
 
 		d3.select("#name")
