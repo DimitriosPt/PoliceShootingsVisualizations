@@ -1,37 +1,78 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en">
 
-	<head>
-	  <meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-	  <title>Sunburst w/ Zooming and Breadcrumbs</title>
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
-	  <link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css'>
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-		  <link rel="stylesheet" href="css/style.css">  
-	</head>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Sunburst w/ Zooming and Breadcrumbs</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+    <link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css'>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+	<link rel="stylesheet" type="text/css" href="css/map-style.css">
 
-	<script src="js/d3.min.js"></script>
-	<body>
-	<header>
-		<h1 >Exploring Police Shootings By State and Race</h1>
-	</header>
-	  <div class="crumbs">
-	  <!-- Crumbs dynamically appended -->
-	</div>
-	<div class="container">
-	  <div class="chart">
-			<div id="explanation" style="visibility: hidden;">
-		      <center><span id="name"></span></center><br/>
-		      
-		    </div>
-		</div>
-	</div>
-	  <script src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/22878/d3.min.js'></script>
-	  <script  src="js/index.js"></script>
+</head>
 
-	<div id="legend"></div>
-	</body>
+<script src="js/d3.min.js"></script>
+<body>
+<header>
+    <h1>Exploring Police Shootings By State and Race</h1>
+</header>
+<div class="crumbs">
+    <!-- Crumbs dynamically appended -->
+</div>
+<div class="container">
+    <div class="chart">
+        <div id="explanation" style="visibility: hidden;">
+            <center><span id="name"></span></center>
+            <br/>
 
+        </div>
+    </div>
+</div>
+<script src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/22878/d3.min.js'></script>
+<script src="js/index.js"></script>
 
+<div id="legend"></div>
+
+<!--Everything Past here is for the Map-->
+<div id="spacer-div"></div>
+<div id="tooltip"></div><!-- div to hold tooltip. -->
+
+<svg width="960" height="600" id="statesvg"></svg> <!-- svg to hold the map. -->
+<script src="uStates.js"></script> <!-- creates uStates. -->
+<script src="https://d3js.org/d3.v3.min.js"></script>
+<script>
+
+    function tooltipHtml(n, d) {	/* function to create html content string in tooltip div. */
+        return "<h4>" + n + "</h4><table>" +
+            "<tr><td>Low</td><td>" + (d.low) + "</td></tr>" +
+            "<tr><td>Average</td><td>" + (d.avg) + "</td></tr>" +
+            "<tr><td>High</td><td>" + (d.high) + "</td></tr>" +
+            "</table>";
+    }
+
+    var sampleData = {};	/* Sample random data. */
+    ["HI", "AK", "FL", "SC", "GA", "AL", "NC", "TN", "RI", "CT", "MA",
+        "ME", "NH", "VT", "NY", "NJ", "PA", "DE", "MD", "WV", "KY", "OH",
+        "MI", "WY", "MT", "ID", "WA", "DC", "TX", "CA", "AZ", "NV", "UT",
+        "CO", "NM", "OR", "ND", "SD", "NE", "IA", "MS", "IN", "IL", "MN",
+        "WI", "MO", "AR", "OK", "KS", "LS", "VA"]
+        .forEach(function (d) {
+            var low = Math.round(100 * Math.random()),
+                mid = Math.round(100 * Math.random()),
+                high = Math.round(100 * Math.random());
+            sampleData[d] = {
+                low: d3.min([low, mid, high]), high: d3.max([low, mid, high]),
+                avg: Math.round((low + mid + high) / 3), color: d3.interpolate("#ffffcc", "#800026")(low / 100)
+            };
+        });
+
+    /* draw states on id #statesvg */
+    uStates.draw("#statesvg", sampleData, tooltipHtml);
+
+    d3.select(self.frameElement).style("height", "600px");
+</script>
+
+</body>
 </html>

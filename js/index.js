@@ -377,20 +377,6 @@ var burst_group = d3.select('.chart')
                    .attr('transform', 'translate(' + width/2 + ',' + height/2 + ')')
 					.text("place");
 
-burst_group.select("svg").append("text")
-   .attr("class", "total")
-   .attr("text-anchor", "middle")
-	 .attr('font-size', '4em')
-	 .attr('y', 20)
-    .style("font-size", "40px");
-
-svg.append("text")
-    .attr("class", "total")
-    .attr("text-anchor", "middle")
-    .attr('font-size', '4em')
-    .attr('y', 20)
-    .text(total);
-
 d3.select(".total").text("Shootings Per State1").style("font-size", "40px");
 
 
