@@ -87,11 +87,31 @@ console.log(my_json);*/
 console.log("All my_json ",my_json);
 
 function randomColor(){
-    return '#0000FF';
+    return getRandomColor([55, 365], [90, 100], [50, 90], [1, 1]);;
     //function randomColor(){
     //     return '#'+(0x1000000+(Math.random())*0xffffff).toString(16).substr(1,6);
     // }
 }
+
+function getRandomColor(h, s, l, a) {
+    var hue = getRandomNumber(h[0], h[1]);
+    var saturation = getRandomNumber(s[0], s[1]);
+    var lightness = getRandomNumber(l[0], l[1]);
+    var alpha = getRandomNumber(a[0] * 100, a[1] * 100) / 100;
+  
+    return {
+      h: hue,
+      s: saturation,
+      l: lightness,
+      a: alpha,
+      hslaValue: getHSLAColor(hue, saturation, lightness, alpha)
+    }
+  }
+  
+  function getRandomNumber(low, high) {
+    var r = Math.floor(Math.random() * (high - low + 1)) + low;
+    return r;
+  }
 
 function raceConverter(race){
     if(race === 'A'){
