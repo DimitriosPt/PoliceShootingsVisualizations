@@ -86,12 +86,9 @@ console.log("My Json Test")
 console.log(my_json);*/
 console.log("All my_json ",my_json);
 
-function randomColor(){
-    return getRandomColor([55, 365], [90, 100], [50, 90], [1, 1]);;
     //function randomColor(){
     //     return '#'+(0x1000000+(Math.random())*0xffffff).toString(16).substr(1,6);
     // }
-}
 
 function getRandomColor(h, s, l, a) {
     var hue = getRandomNumber(h[0], h[1]);
@@ -112,6 +109,11 @@ function getRandomColor(h, s, l, a) {
     var r = Math.floor(Math.random() * (high - low + 1)) + low;
     return r;
   }
+
+  function getHSLAColor(h, s, l, a) {
+    return `hsl(${h}, ${s}%, ${l}%, ${a})`;
+  }  
+
 
 function raceConverter(race){
     if(race === 'A'){
@@ -155,7 +157,7 @@ function colorConverter(race){
     if(race === 'N'){
         return "#FFFFFF"
     }
-    return randomColor();
+    return getRandomColor([0, 65], [90, 100], [50, 90], [1, 1]);
 }
 
 function armedConverter(armed){
@@ -171,7 +173,7 @@ function armedConverter(armed){
     if(armed === "toy weapon"){
         return "#00FF22"
     }
-    return randomColor();
+    return getRandomColor([0, 65], [90, 100], [50, 90], [1, 1]);
 }
 
 function builder(){
@@ -184,7 +186,7 @@ function builder(){
 
         if(State === undefined){
             //console.log("State is ",my_json[i].state, i);
-            State = {name: my_json[i].state, color: randomColor(), children:[]};
+            State = {name: my_json[i].state, color: getRandomColor([0, 65], [90, 100], [50, 90], [1, 1]), children:[]};
             output.children.push(State);
         }
 
