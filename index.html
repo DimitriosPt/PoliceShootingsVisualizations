@@ -42,37 +42,143 @@
 <svg width="960" height="600" id="statesvg"></svg> <!-- svg to hold the map. -->
 <script src="js/uStates.js"></script> <!-- creates uStates. -->
 <script src="https://d3js.org/d3.v3.min.js"></script>
-<script>
 
-    function tooltipHtml(n, d) {	/* function to create html content string in tooltip div. */
-        return "<h4>" + n + "</h4><table>" +
-            "<tr><td>Total Killings</td><td>" + (d.low) + "</td></tr>" +
-            "<tr><td>Unarmed</td><td>" + (d.avg) + "</td></tr>" +
-            "<tr><td>Armed With Firearm</td><td>" + (d.high) + "</td></tr>" +
-            "</table>";
+<style>
+
+    .land {
+        fill: #fff;
+        stroke: #ccc;
     }
 
-    var sampleData = {};	/* Sample random data. */
-    ["HI", "AK", "FL", "SC", "GA", "AL", "NC", "TN", "RI", "CT", "MA",
-        "ME", "NH", "VT", "NY", "NJ", "PA", "DE", "MD", "WV", "KY", "OH",
-        "MI", "WY", "MT", "ID", "WA", "DC", "TX", "CA", "AZ", "NV", "UT",
-        "CO", "NM", "OR", "ND", "SD", "NE", "IA", "MS", "IN", "IL", "MN",
-        "WI", "MO", "AR", "OK", "KS", "LS", "VA"]
-        .forEach(function (d) {
-            var low = Math.round(100 * Math.random()),
-                mid = Math.round(100 * Math.random()),
-                high = Math.round(100 * Math.random());
-            sampleData[d] = {
-                low: d3.min([low, mid, high]), high: d3.max([low, mid, high]),
-                avg: Math.round((low + mid + high) / 3), color: d3.interpolate("#ffffcc", "#800026")(low / 100)
-            };
-        });
+    .state {
+        fill: #ccc;
+        stroke: #666;
+    }
 
-    /* draw states on id #statesvg */
-    uStates.draw("#statesvg", sampleData, tooltipHtml);
+</style>
+<h1>
+    US States By Population By Race
+</h1>
+<script src="//d3js.org/d3.v3.min.js"></script>
+<script src="//d3js.org/topojson.v1.min.js"></script>
 
-    d3.select(self.frameElement).style("height", "600px");
+<form>
+    <label><input type="radio" name="race" id="asian"> asian</label>
+    <label><input type="radio" name="race" id="white"> white</label>
+    <label><input type="radio" name="race" id="africanamerican"> african american</label>
+    <label><input type="radio" name="race" id="nativeamerican" checked> native american</label>
+    <label><input type="radio" name="race" id="pacificislander"> other</label>
+</form>
+
+
+<script>
+
+    var path = d3.geo.path();
+
+    var svg = d3.select("body").append("svg")
+        .attr("width", 960)
+        .attr("height", 500);
+
+
+    var color = d3.scale.linear()
+        .range(['white', 'red', 'fuchsia', 'purple','black']);
+
+    var stuff = []
+
+    d3.tsv('data.tsv', function(data){
+        stuff.push(data)
+        var scale = d3.extent(data, function(x){return +x.asian})
+        var scale = scale.concat(d3.extent(data, function(x){return +x.black}))
+        var scale = scale.concat(d3.extent(data, function(x){return +x.white}))
+        var scale = scale.concat(d3.extent(data, function(x){return +x.native}))
+        var scale = scale.concat(d3.extent(data, function(x){return +x.pacisland}))
+        color.domain(d3.extent(scale))
+
+    });
+
+    getinfo = function(x){
+        return stuff[0].filter(function(z){return String(z.id) == x});
+    };
+
+
+    d3.json("us.json", function(error, us) {
+        if (error) throw error;
+
+// this part makes the full map
+        svg.append("path")
+            .datum(topojson.feature(us, us.objects.land))
+            .attr("class", "land")
+            .attr("d", path);
+
+
+// modify the json so it has the info you need in the actual object
+
+        var all_states = topojson.feature(us, us.objects.states).features;
+        all_states.forEach(function(d){d.info = getinfo(d.id)[0]});
+        var all_states = all_states.filter(function(d){return d.info != undefined});
+        all_states.forEach(function(d){d.state = d.info.state});
+
+//make the states
+
+        svg.selectAll(".state")
+            .data(all_states)
+            .enter().append("path")
+            .attr("class", "state")
+            .attr("d", path);
+
+// label the states
+        svg.selectAll("text")
+            .data(all_states)
+            .enter()
+            .append("svg:text")
+            .text(function(d){return d.info.state})
+            .attr("x", function(d){
+                return path.centroid(d)[0];
+            })
+            .attr("y", function(d){
+                return  path.centroid(d)[1];
+            })
+            .attr("text-anchor","middle")
+            .attr('font-size','6pt');
+
+    });
+
+    var asians = function(){
+        d3.selectAll('.state').transition().duration(800).style('fill',function(d){return color(+d.info.asian)});
+    };
+
+    var whites = function(){
+        d3.selectAll('.state').transition().duration(800).style('fill',function(d){return color(+d.info.white)});
+    };
+
+    var afro_am = function(){
+        d3.selectAll('.state').transition().duration(800).style('fill',function(d){return color(+d.info.black)});
+    };
+
+    var native_am = function(){
+        d3.selectAll('.state').transition().duration(800).style('fill',function(d){return color(+d.info.native)});
+    };
+
+    var pacisland = function(){
+        d3.selectAll('.state').transition().duration(800).style('fill',function(d){return color(+d.info.pacisland)});
+    };
+
+
+    d3.selectAll('#asian').on('change', asians);
+    d3.selectAll('#white').on('change', whites);
+    d3.selectAll('#africanamerican').on('change', afro_am);
+    d3.selectAll('#nativeamerican').on('change', native_am);
+    d3.selectAll('#pacificislander').on('change', pacisland);
+
 </script>
+
+<!--
+state	white	black	native	asian	pacisland	id
+Alabama	3420293	1288535	62929	68357	7984	1
+Alaska	527709	34167	139762	50943	11360	2
+Arizona	5554869	338629	394196	241989	28431	4
+Arkansas	2388119	472418	52463	46059	8597	5
+-->
 
 </body>
 </html>
