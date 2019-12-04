@@ -74,7 +74,7 @@ var my_json = (function () {
     $.ajax({
         'async': false,
         'global': false,
-        'url': "./data/policeShootingsJSON.json",
+        'url': "./data/shootings.json",
         'dataType': "json",
         'success': function (data) {
             json = data;
@@ -124,7 +124,10 @@ function raceConverter(race){
         return "Other"
     }
     if(race === 'N'){
-        return "None"
+        return "Native American"
+    }
+    if(race === 'U'){
+        return "Unknown"
     }
     return race;
 
@@ -229,12 +232,6 @@ var revised_shootings = {
     ]
 };
 console.log("Revised Shootings Test", revised_shootings);
-/*var formatter;
-my_json.forEach(function (person) {
-    formatter =
-    revised_shootings.push(formatter);
-})*/
-
 
 
 //Using a fetch to read in the json file
