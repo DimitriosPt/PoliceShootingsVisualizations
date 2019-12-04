@@ -1,88 +1,4 @@
-// Add test data here (or make api call for data)
-var data = {
-            "name":"States",
-			"color":"#FFF123",
-            "children":[
-				{"name": "California",
-				"color":"#006BB6",
-		 		 "children": [
-					 {"name": "Black", "value": 10,"color":"#3D0C02",
-                        "children":[
-                            {"name": "Unarmed", "value": 8, "color": "#ff0000"},
-                            {"name": "Armed", "value": 1,  "color": "#00FF00"},
-                            {"name": "Mental", "value": 0,  "color": "#9B870C"}
-                        ]
-                     },
-					 {"name": "White", "value": 1,"color":"#FFE0BD"},
-					 {"name": "Hispanic", "value": 1,"color":"#E0AC69"},
-					 {"name": "Asian", "value": 1,"color":"#FFDBAC"}
-				   ]
-				},
-				{"name": "Nevada",
-				"color":"#00843D",
-		 		 "children": [
-                     {"name": "Black", "value": 100,"color":"#3D0C02",
-                         "children":[
-                             {"name": "Unarmed", "value": 8, "color": "#ff0000"},
-                             {"name": "Armed", "value": 1,  "color": "#00FF00"},
-                             {"name": "Mental", "value": 1,  "color": "#9B870C"}
-                         ]
-                     },
-                     {"name": "White", "value": 1,"color":"#FFE0BD"},
-                     {"name": "Hispanic", "value": 1,"color":"#E0AC69"},
-                     {"name": "Asian", "value": 1,"color":"#FFDBAC"}
-				   ]
-				},
-				{"name": "Flordia",
-				"color":"#c0ffb7",
-		 		 "children": [
-                     {"name": "Black", "value": 1,"color":"#3D0C02"},
-                     {"name": "White", "value": 1,"color":"#FFE0BD"},
-                     {"name": "Hispanic", "value": 1,"color":"#E0AC69"},
-                     {"name": "Asian", "value": 1,"color":"#FFDBAC"}
-
-				   ]
-				},
-				{"name": "Texas",
-				"color":"#BF5700",
-		 		 "children": [
-                     {"name": "Black", "value": 19,"color":"#3D0C02"},
-                     {"name": "White", "value": 4,"color":"#FFE0BD"},
-                     {"name": "Hispanic", "value": 8,"color":"#E0AC69"},
-                     {"name": "Asian", "value": 6,"color":"#FFDBAC"}
-				   ]
-				},
-               {"name": "Delaware",
-               "color":"#808080",
-                "children": [
-                      {"name": "Black", "value": 10,"color":"#3D0C02"},
-                      {"name": "White", "value": 10,"color":"#FFE0BD"},
-                      {"name": "Hispanic", "value": 15,"color":"#E0AC69"},
-                      {"name": "Asian", "value": 13,"color":"#FFDBAC"}
-                  ]
-              },
-              {"name": "New Mexico",
-                  "color":"#228B22",
-                  "children": [
-                      {"name": "Black", "value": 8,"color":"#3D0C02"},
-                      {"name": "White", "value": 9,"color":"#FFE0BD"},
-                      {"name": "Hispanic", "value": 12,"color":"#E0AC69"},
-                      {"name": "Asian", "value": 3,"color":"#FFDBAC"}
-                  ] //value changes the physical size of the segment, should aggrigate with the number of shootings
-              },
-				{"name": "Mississippi",
-				"color":"#BF0A30",
-		 		 "children": [
-                     {"name": "Black", "value": 10,"color":"#3D0C02"},
-                     {"name": "White", "value": 11,"color":"#FFE0BD"},
-                     {"name": "Hispanic", "value": 9,"color":"#E0AC69"},
-                     {"name": "Asian", "value": 5,"color":"#FFDBAC"}
-					]
-				}
-	        ]
-};
-
-data = {
+let data = {
     "name":"States",
     "color":"#FFF123",
     "children":[
@@ -276,28 +192,7 @@ function builder(){
 console.log("Builder JSON",builder());
 data = builder();
 console.log("Data ", data);
-//data = builder();
 
-/*var testing = function(){
-      var builder = ["name: States", "color : #FFF123", children[
-
-          ]];
-};
-
-var viewData = {
-    my_json : []
-};
-
-function onGeneratedRow(columnsResult)
-{
-    var jsonData = {};
-    columnsResult.forEach(function(column)
-    {
-        var columnName = column.metadata.colName;
-        jsonData[columnName] = column.value;
-    });
-    viewData.employees.push(jsonData);
-}*/
 var revised_shootings = {
     "name":"States",
     "color":"#FFF123",
@@ -327,8 +222,8 @@ my_json.forEach(function (person) {
 
 // This can control the size of the starburst
 // Size/state related variables
-var width = 600,
-    height = 600,
+var width = 650,
+    height = 650,
     outer_radius = width/2.5,
     arc_transition; // save current arc transition
 
