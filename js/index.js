@@ -157,21 +157,24 @@ function colorConverter(race){
     if(race === 'N'){
         return "#FFFFFF"
     }
-    return getRandomColor([0, 65], [90, 100], [50, 90], [1, 1]);
+    if(race === null) {
+        return "#000000"
+    }
+    return getRandomColor([0, 65], [90, 100], [40, 90], [1, 1]);
 }
 
 function armedConverter(armed){
     if(armed === "gun"){
-        return "#FF0000";
+        return "#AF002A";
     }
     if(armed === "unarmed"){
-        return "#00FF00"
+        return "#379E4C"
     }
     if(armed === undefined){
-        return "#00FF00"
+        return "#72859E"
     }
     if(armed === "toy weapon"){
-        return "#00FF22"
+        return "#33819E"
     }
     return getRandomColor([0, 65], [90, 100], [50, 90], [1, 1]);
 }
