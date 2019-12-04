@@ -10,182 +10,237 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <link rel="stylesheet" type="text/css" href="css/style.css">
 	<link rel="stylesheet" type="text/css" href="css/map-style.css">
+    <script src ="js/pageable.js"></script>
+
+    <script src="https://d3js.org/d3.v3.min.js"></script>
+    <script src="//d3js.org/d3.v3.min.js"></script>
+    <script src="//d3js.org/topojson.v1.min.js"></script>
 
 </head>
 
 <script src="js/d3.min.js"></script>
-<body>
-<header>
-    <h1>Exploring Police Shootings By State and Race</h1>
-</header>
-<div class="crumbs">
-    <!-- Crumbs dynamically appended -->
-</div>
-<div class="container">
-    <div class="chart">
-        <div id="explanation" style="visibility: hidden;">
-            <center><span id="name"></span></center>
-            <br/>
-
+<main id ="main_page">
+    <section data-anchor="Page 1">
+        <header>
+            <h1>Exploring Police Shootings By State and Race</h1>
+        </header>
+        <div class="crumbs">
+            <!-- Crumbs dynamically appended -->
         </div>
-    </div>
-</div>
-<script src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/22878/d3.min.js'></script>
-<script src="js/index.js"></script>
+        <div class="container">
+            <div class="chart">
+                <div id="explanation" style="visibility: hidden;">
+                    <center><span id="name"></span></center>
+                    <br/>
 
-<div id="legend"></div>
+                </div>
+            </div>
+        </div>
+        <script src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/22878/d3.min.js'></script>
+        <script src="js/index.js"></script>
 
-<!--Everything Past here is for the Map-->
-<div id="spacer-div"></div>
-<div id="tooltip"></div><!-- div to hold tooltip. -->
+        <div id="legend"></div>
 
-<svg width="960" height="600" id="statesvg"></svg> <!-- svg to hold the map. -->
-<script src="js/uStates.js"></script> <!-- creates uStates. -->
-<script src="https://d3js.org/d3.v3.min.js"></script>
+    </section>
+    <section data-anchor="Page 2">
+        <container id = map-container>
+        <div id="tooltip"></div><!-- div to hold tooltip. -->
 
-<style>
+        <svg width="960" height="600" id="statesvg"></svg> <!-- svg to hold the map. -->
+        <script src="js/uStates.js"></script> <!-- creates uStates. -->
+        <style>
 
-    .land {
-        fill: #fff;
-        stroke: #ccc;
-    }
+            .land {
+                fill: #fff;
+                stroke: #ccc;
+            }
 
-    .state {
-        fill: #ccc;
-        stroke: #666;
-    }
+            .state {
+                fill: #ccc;
+                stroke: #666;
+            }
 
-</style>
-<h1>
-    Fatal Shootings By Race
-</h1>
-<script src="//d3js.org/d3.v3.min.js"></script>
-<script src="//d3js.org/topojson.v1.min.js"></script>
+        </style>
+        <h1>
+            Fatal Shootings By Race
+        </h1>
+        <form>
+            <label><input type="radio" name="race" id="asian"> Asian</label>
+            <label><input type="radio" name="race" id="white"> White</label>
+            <label><input type="radio" name="race" id="africanamerican"> african american</label>
+            <label><input type="radio" name="race" id="nativeamerican"> native american</label>
+            <label><input type="radio" name="race" id="hispanic"> Hispanic </label>
+            <label><input type="radio" name="race" id="other"> Other</label>
+        </form>
 
-<form>
-    <label><input type="radio" name="race" id="asian"> Asian</label>
-    <label><input type="radio" name="race" id="white"> White</label>
-    <label><input type="radio" name="race" id="africanamerican"> african american</label>
-    <label><input type="radio" name="race" id="nativeamerican"> native american</label>
-    <label><input type="radio" name="race" id="hispanic"> Hispanic </label>
-    <label><input type="radio" name="race" id="other"> Other</label>
-</form>
+        <script>
 
+            var path = d3.geo.path();
 
-<script>
+            var svg = d3.select("#map-container").append("svg")
+                .attr("width", 960)
+                .attr("height", 500);
 
-    var path = d3.geo.path();
+            var color = d3.scale.linear()
+                .range(['white', 'red']);
 
-    var svg = d3.select("body").append("svg")
-        .attr("width", 960)
-        .attr("height", 500);
+            var stuff = []
 
-    var color = d3.scale.linear()
-        .range(['white', 'red']);
+            d3.csv('grouped_filtered.csv', function(data){
+                stuff.push(data)
+                var scale = d3.extent(data, function(x){return +x.Asian})
+                var scale = scale.concat(d3.extent(data, function(x){return +x.Black}))
+                var scale = scale.concat(d3.extent(data, function(x){return +x.White}))
+                var scale = scale.concat(d3.extent(data, function(x){return +x.Native}))
+                var scale = scale.concat(d3.extent(data, function(x){return +x.pacisland}))
+                var scale = scale.concat(d3.extent(data, function(x){return +x.Hispanic}))
+                var scale = scale.concat(d3.extent(data, function(x){return +x.Other}))
+                color.domain(d3.extent(scale)) //scales the colors of each state to the number of
+                //cases in each state
+            });
 
-    var stuff = []
-
-    d3.csv('grouped_filtered.csv', function(data){
-        stuff.push(data)
-        var scale = d3.extent(data, function(x){return +x.Asian})
-        var scale = scale.concat(d3.extent(data, function(x){return +x.Black}))
-        var scale = scale.concat(d3.extent(data, function(x){return +x.White}))
-        var scale = scale.concat(d3.extent(data, function(x){return +x.Native}))
-        var scale = scale.concat(d3.extent(data, function(x){return +x.pacisland}))
-        var scale = scale.concat(d3.extent(data, function(x){return +x.Hispanic}))
-        var scale = scale.concat(d3.extent(data, function(x){return +x.Other}))
-        color.domain(d3.extent(scale)) //scales the colors of each state to the number of
-                                        //cases in each state
-    });
-
-    getinfo = function(x){
-        return stuff[0].filter(function(z){return String(z.id) == x});
-    };
+            getinfo = function(x){
+                return stuff[0].filter(function(z){return String(z.id) == x});
+            };
 
 
-    d3.json("us.json", function(error, us) {
-        if (error) throw error;
+            d3.json("us.json", function(error, us) {
+                if (error) throw error;
 
 // this part makes the full map
-        svg.append("path")
-            .datum(topojson.feature(us, us.objects.land))
-            .attr("class", "land")
-            .attr("d", path);
+                svg.append("path")
+                    .datum(topojson.feature(us, us.objects.land))
+                    .attr("class", "land")
+                    .attr("d", path);
 
 
 // modify the json so it has the info you need in the actual object
 
-        var all_states = topojson.feature(us, us.objects.states).features;
-        all_states.forEach(function(d){d.info = getinfo(d.id)[0]});
-        var all_states = all_states.filter(function(d){return d.info != undefined});
-        all_states.forEach(function(d){d.state = d.info.state});
+                var all_states = topojson.feature(us, us.objects.states).features;
+                all_states.forEach(function(d){d.info = getinfo(d.id)[0]});
+                var all_states = all_states.filter(function(d){return d.info != undefined});
+                all_states.forEach(function(d){d.state = d.info.state});
 
 //make the states
 
-        svg.selectAll(".state")
-            .data(all_states)
-            .enter().append("path")
-            .attr("class", "state")
-            .attr("d", path);
+                svg.selectAll(".state")
+                    .data(all_states)
+                    .enter().append("path")
+                    .attr("class", "state")
+                    .attr("d", path);
 
 // label the states
-        svg.selectAll("text")
-            .data(all_states)
-            .enter()
-            .append("svg:text")
-            .text(function(d){return d.info.state})
-            .attr("x", function(d){
-                return path.centroid(d)[0];
-            })
-            .attr("y", function(d){
-                return  path.centroid(d)[1];
-            })
-            .attr("text-anchor","middle")
-            .attr('font-size','6pt');
+                svg.selectAll("text")
+                    .data(all_states)
+                    .enter()
+                    .append("svg:text")
+                    .text(function(d){return d.info.state})
+                    .attr("x", function(d){
+                        return path.centroid(d)[0];
+                    })
+                    .attr("y", function(d){
+                        return  path.centroid(d)[1];
+                    })
+                    .attr("text-anchor","middle")
+                    .attr('font-size','6pt');
 
+            });
+
+            var asians = function(){
+                d3.selectAll('.state').transition().duration(800).style('fill',function(d){return color(+d.info.Asian)});
+            };
+
+            var whites = function(){
+                d3.selectAll('.state').transition().duration(800).style('fill',function(d){return color(+d.info.White)});
+            };
+
+            var afro_am = function(){
+                d3.selectAll('.state').transition().duration(800).style('fill',function(d){return color(+d.info.Black)});
+            };
+
+            var native_am = function(){
+                d3.selectAll('.state').transition().duration(800).style('fill',function(d){return color(+d.info.Native)});
+            };
+
+            var pacisland = function(){
+                d3.selectAll('.state').transition().duration(800).style('fill',function(d){return color(+d.info.pacisland)});
+            };
+
+            var hispanics = function(){
+                d3.selectAll('.state').transition().duration(800).style('fill',function(d){return color(+d.info.Hispanic)});
+            };
+            var others = function(){
+                d3.selectAll('.state').transition().duration(800).style('fill',function(d){return color(+d.info.Other)});
+            };
+
+
+            d3.selectAll('#asian').on('change', asians);
+            d3.selectAll('#white').on('change', whites);
+            d3.selectAll('#africanamerican').on('change', afro_am);
+            d3.selectAll('#nativeamerican').on('change', native_am);
+            d3.selectAll('#pacificislander').on('change', pacisland);
+            d3.selectAll('#hispanic').on('change', hispanics);
+            d3.selectAll('#other').on('change', others);
+        </script>
+        </container>
+    </section>
+    <section data-anchor="Page 3">
+        <div id="population-pie">
+            <img src = "Static1.jpg" alt = "Fatal Shootings to Population Comparison">
+        </div>
+    </section>
+    <section data-anchor="Page 4">
+        Section 4
+    </section>
+
+</main>
+<script>
+    new Pageable('#main_page', {
+        childSelector: "[data-anchor]",// CSS3 selector string for the pages
+        anchors: [], // define the page anchors
+        pips: true, // display the pips
+        animation: 300, // the duration in ms of the scroll animation
+        delay: 0, // the delay in ms before the scroll animation starts
+        throttle: 50, // the interval in ms that the resize callback is fired
+        orientation: "vertical", // or horizontal
+        swipeThreshold: 50, // swipe / mouse drag distance (px) before firing the page change event
+        freeScroll: false, // allow manual scrolling when dragging instead of automatically moving to next page
+        navPrevEl: false, // define an element to use to scroll to the previous page (CSS3 selector string or Element reference)
+        navNextEl: false, // define an element to use to scroll to the next page (CSS3 selector string or Element reference)
+        infinite: false, // enable infinite scrolling (from 0.4.0)
+        events: {
+            wheel: true, // enable / disable mousewheel scrolling
+            mouse: true, // enable / disable mouse drag scrolling
+            touch: true, // enable / disable touch / swipe scrolling
+            keydown: true, // enable / disable keyboard navigation
+        },
+        easing: function(currentTime, startPos, endPos, interval) {
+            // the easing function used for the scroll animation
+            return -endPos * (currentTime /= interval) * (currentTime - 2) + startPos;
+        },
+        onInit: function() {
+            // do something when the instance is ready
+        },
+        onUpdate: function() {
+            // do something when the instance updates
+        },
+        onBeforeStart: function() {
+            // do something before scrolling begins
+        },
+        onStart: function() {
+            // do something when scrolling begins
+        },
+        onScroll: function() {
+            // do something during scroll
+        },
+        onFinish: function() {
+            // do something when scrolling ends
+        },
     });
 
-    var asians = function(){
-        d3.selectAll('.state').transition().duration(800).style('fill',function(d){return color(+d.info.Asian)});
-    };
-
-    var whites = function(){
-        d3.selectAll('.state').transition().duration(800).style('fill',function(d){return color(+d.info.White)});
-    };
-
-    var afro_am = function(){
-        d3.selectAll('.state').transition().duration(800).style('fill',function(d){return color(+d.info.Black)});
-    };
-
-    var native_am = function(){
-        d3.selectAll('.state').transition().duration(800).style('fill',function(d){return color(+d.info.Native)});
-    };
-
-    var pacisland = function(){
-        d3.selectAll('.state').transition().duration(800).style('fill',function(d){return color(+d.info.pacisland)});
-    };
-
-    var hispanics = function(){
-        d3.selectAll('.state').transition().duration(800).style('fill',function(d){return color(+d.info.Hispanic)});
-    };
-    var others = function(){
-        d3.selectAll('.state').transition().duration(800).style('fill',function(d){return color(+d.info.Other)});
-    };
-
-
-    d3.selectAll('#asian').on('change', asians);
-    d3.selectAll('#white').on('change', whites);
-    d3.selectAll('#africanamerican').on('change', afro_am);
-    d3.selectAll('#nativeamerican').on('change', native_am);
-    d3.selectAll('#pacificislander').on('change', pacisland);
-    d3.selectAll('#hispanic').on('change', hispanics);
-    d3.selectAll('#other').on('change', others);
-
 </script>
-
-<div id="population-pie">
-    <img src = "Static1.jpg" alt = "Fatal Shootings to Population Comparison">
-</div>
+<script> new Pageable("#main_page")</script>
+<body>
 
 </body>
 </html>

@@ -360,18 +360,13 @@ var arc_generator = d3.svg.arc()
         return Math.max(0, y(d.y + d.dy)); 
       });
 
-/*d3.svg.append("image")
-  .attr("xlink:href", "../images/2.jpg")
-  .attr("x", -650)
-  .attr("y", -650);
-*/
 
 // Append a centered group for the burst to be added to
 var burst_group = d3.select('.chart')
                    .append('svg')
                    .attr({
-                     width: width,
-                     height: height
+                     width: 600,
+                     height: 600
                    })
                    .append('g')
                    .attr('transform', 'translate(' + width/2 + ',' + height/2 + ')')
@@ -381,13 +376,6 @@ d3.select(".total").text("Shootings Per State1").style("font-size", "40px");
 
 
 
-/*d3.svg.select("g").append("svg:text")
-    .on("click",click)
-    .style("font-size","4em")
-    .style("font-weight","bold")
-    .text(function(d) { return d.name; });
-*/
-// Append Arcs
 var arcs = burst_group.selectAll("path.ark")
     .data( nodes )
     .enter().append("path")
