@@ -48,3 +48,35 @@
 #tooltip tr td:nth-child(2){
     text-align:center;
 }
+#map-container
+{
+    height: auto;
+    text-align: center;
+    padding-top: 30px;
+}
+#page-2-left
+{
+    margin-left:auto;
+    text-align: center;
+    background: rgba(112, 107, 103, 0.2);
+    border: 1px solid black;
+    border-radius: 25px;
+    line-height: 2;
+}
+
+#page-2-right
+{
+    text-align: center;
+    background: rgba(112, 107, 103, 0.2);
+    border: 1px solid black;
+    border-radius: 25px;
+}
+
+ul {
+    margin-left:auto;
+    font-size: 18px;
+    list-style-type: circle;
+}
+li{
+    list-style-type: circle;
+}

@@ -43,153 +43,169 @@
 
     </section>
     <section data-anchor="Page 2">
-        <div id = map-container style="text-align: center">
-        <div id="tooltip"></div><!-- div to hold tooltip. -->
+        <div id="page-2-container" style="width: 100%; height: 90%; display: flex">
+            <div id = "page-2-left" style="float: left; width: 20%;">
+                Key Observations
+                <ul>
+                    <li>California is consistently the state with the highest number of cases </li>
+                    <li>Texas and Florida also have a very high frequency of cases</li>
+                    <li>Cases involving Asian victims seem to be primarily on the West Coast</li>
+                    <li>Cases involving Hispanic victims seem to be much higher in states
+                        that share a border with Mexico</li>
+                    <li>North and South Dakota are mysteriously absent from cases CHANGE WORDING</li>
+                </ul>
+
+            </div>
+            <div id = map-container style="text-align: center; padding-top: 20px; width: 60%">
+                <div id="tooltip"></div><!-- div to hold tooltip. -->
 
 
-        <script src="js/uStates.js"></script> <!-- creates uStates. -->
-        <style>
+                <script src="js/uStates.js"></script> <!-- creates uStates. -->
+                <style>
 
-            .land {
-                fill: #fff;
-                stroke: #ccc;
-            }
+                    .land {
+                        fill: #fff;
+                        stroke: #ccc;
+                    }
 
-            .state {
-                fill: #ccc;
-                stroke: #666;
-            }
+                    .state {
+                        fill: #ccc;
+                        stroke: #666;
+                    }
 
-        </style>
-        <h1 style="text-align: center">
-            Fatal Shootings By Race
-        </h1>
-        <form style="text-align: center">
-            <label><input type="radio" name="race" id="asian"> Asian</label>
-            <label><input type="radio" name="race" id="white"> White</label>
-            <label><input type="radio" name="race" id="africanamerican"> african american</label>
-            <label><input type="radio" name="race" id="nativeamerican"> native american</label>
-            <label><input type="radio" name="race" id="hispanic"> Hispanic </label>
-            <label><input type="radio" name="race" id="other"> Other</label>
-            <label><input type="radio" name="race" id="unknown"> Unknown</label>
-        </form>
+                </style>
+                <h1 style="text-align: center">
+                    Fatal Shootings By Race
+                </h1>
+                <form style="text-align: center">
+                    <label><input type="radio" name="race" id="asian"> Asian</label>
+                    <label><input type="radio" name="race" id="white"> White</label>
+                    <label><input type="radio" name="race" id="africanamerican">African American</label>
+                    <label><input type="radio" name="race" id="nativeamerican"> Native American</label>
+                    <label><input type="radio" name="race" id="hispanic"> Hispanic </label>
+                    <label><input type="radio" name="race" id="other"> Other</label>
+                    <label><input type="radio" name="race" id="unknown"> Unknown</label>
+                </form>
 
-        <script>
+                <script>
 
-            var path = d3.geo.path();
+                    var path = d3.geo.path();
 
-            var svg = d3.select("#map-container").append("svg")
-                .attr("width", 960)
-                .attr("height", 500)
-                .attr("align", "center");
+                    var svg = d3.select("#map-container").append("svg")
+                        .attr("width", 960)
+                        .attr("height", 500)
+                        .attr("align", "center");
 
-            var color = d3.scale.linear()
-                .range(['white', 'red']);
+                    var color = d3.scale.linear()
+                        .range(['white', 'red']);
 
-            var stuff = []
+                    var stuff = []
 
-            d3.csv('grouped_filtered.csv', function(data){
-                stuff.push(data)
-                var scale = d3.extent(data, function(x){return +x.Asian})
-                var scale = scale.concat(d3.extent(data, function(x){return +x.Black}))
-                var scale = scale.concat(d3.extent(data, function(x){return +x.White}))
-                var scale = scale.concat(d3.extent(data, function(x){return +x.Native}))
-                var scale = scale.concat(d3.extent(data, function(x){return +x.pacisland}))
-                var scale = scale.concat(d3.extent(data, function(x){return +x.Hispanic}))
-                var scale = scale.concat(d3.extent(data, function(x){return +x.Other}))
-                var scale = scale.concat(d3.extent(data, function(x){return +x.Unknown}))
-                color.domain(d3.extent(scale)) //scales the colors of each state to the number of
-                //cases in each state
-            });
+                    d3.csv('grouped_filtered.csv', function(data){
+                        stuff.push(data)
+                        var scale = d3.extent(data, function(x){return +x.Asian})
+                        var scale = scale.concat(d3.extent(data, function(x){return +x.Black}))
+                        var scale = scale.concat(d3.extent(data, function(x){return +x.White}))
+                        var scale = scale.concat(d3.extent(data, function(x){return +x.Native}))
+                        var scale = scale.concat(d3.extent(data, function(x){return +x.pacisland}))
+                        var scale = scale.concat(d3.extent(data, function(x){return +x.Hispanic}))
+                        var scale = scale.concat(d3.extent(data, function(x){return +x.Other}))
+                        var scale = scale.concat(d3.extent(data, function(x){return +x.Unknown}))
+                        color.domain(d3.extent(scale)) //scales the colors of each state to the number of
+                        //cases in each state
+                    });
 
-            getinfo = function(x){
-                return stuff[0].filter(function(z){return String(z.id) == x});
-            };
+                    getinfo = function(x){
+                        return stuff[0].filter(function(z){return String(z.id) == x});
+                    };
 
 
-            d3.json("us.json", function(error, us) {
-                if (error) throw error;
+                    d3.json("us.json", function(error, us) {
+                        if (error) throw error;
 
 // this part makes the full map
-                svg.append("path")
-                    .datum(topojson.feature(us, us.objects.land))
-                    .attr("class", "land")
-                    .attr("d", path);
+                        svg.append("path")
+                            .datum(topojson.feature(us, us.objects.land))
+                            .attr("class", "land")
+                            .attr("d", path);
 
 
 // modify the json so it has the info you need in the actual object
 
-                var all_states = topojson.feature(us, us.objects.states).features;
-                all_states.forEach(function(d){d.info = getinfo(d.id)[0]});
-                var all_states = all_states.filter(function(d){return d.info != undefined});
-                all_states.forEach(function(d){d.state = d.info.state});
+                        var all_states = topojson.feature(us, us.objects.states).features;
+                        all_states.forEach(function(d){d.info = getinfo(d.id)[0]});
+                        var all_states = all_states.filter(function(d){return d.info != undefined});
+                        all_states.forEach(function(d){d.state = d.info.state});
 
 //make the states
 
-                svg.selectAll(".state")
-                    .data(all_states)
-                    .enter().append("path")
-                    .attr("class", "state")
-                    .attr("d", path);
+                        svg.selectAll(".state")
+                            .data(all_states)
+                            .enter().append("path")
+                            .attr("class", "state")
+                            .attr("d", path);
 
 // label the states
-                svg.selectAll("text")
-                    .data(all_states)
-                    .enter()
-                    .append("svg:text")
-                    .text(function(d){return d.info.state})
-                    .attr("x", function(d){
-                        return path.centroid(d)[0];
-                    })
-                    .attr("y", function(d){
-                        return  path.centroid(d)[1];
-                    })
-                    .attr("text-anchor","middle")
-                    .attr('font-size','6pt');
+                        svg.selectAll("text")
+                            .data(all_states)
+                            .enter()
+                            .append("svg:text")
+                            .text(function(d){return d.info.state})
+                            .attr("x", function(d){
+                                return path.centroid(d)[0];
+                            })
+                            .attr("y", function(d){
+                                return  path.centroid(d)[1];
+                            })
+                            .attr("text-anchor","middle")
+                            .attr('font-size','6pt');
 
-            });
+                    });
 
-            var asians = function(){
-                d3.selectAll('.state').transition().duration(800).style('fill',function(d){return color(+d.info.Asian)});
-            };
+                    var asians = function(){
+                        d3.selectAll('.state').transition().duration(800).style('fill',function(d){return color(+d.info.Asian)});
+                    };
 
-            var whites = function(){
-                d3.selectAll('.state').transition().duration(800).style('fill',function(d){return color(+d.info.White)});
-            };
+                    var whites = function(){
+                        d3.selectAll('.state').transition().duration(800).style('fill',function(d){return color(+d.info.White)});
+                    };
 
-            var afro_am = function(){
-                d3.selectAll('.state').transition().duration(800).style('fill',function(d){return color(+d.info.Black)});
-            };
+                    var afro_am = function(){
+                        d3.selectAll('.state').transition().duration(800).style('fill',function(d){return color(+d.info.Black)});
+                    };
 
-            var native_am = function(){
-                d3.selectAll('.state').transition().duration(800).style('fill',function(d){return color(+d.info.Native)});
-            };
+                    var native_am = function(){
+                        d3.selectAll('.state').transition().duration(800).style('fill',function(d){return color(+d.info.Native)});
+                    };
 
-            var pacisland = function(){
-                d3.selectAll('.state').transition().duration(800).style('fill',function(d){return color(+d.info.pacisland)});
-            };
+                    var pacisland = function(){
+                        d3.selectAll('.state').transition().duration(800).style('fill',function(d){return color(+d.info.pacisland)});
+                    };
 
-            var hispanics = function(){
-                d3.selectAll('.state').transition().duration(800).style('fill',function(d){return color(+d.info.Hispanic)});
-            };
-            var others = function(){
-                d3.selectAll('.state').transition().duration(800).style('fill',function(d){return color(+d.info.Other)});
-            };
-            var unknowns = function(){
-                d3.selectAll('.state').transition().duration(800).style('fill',function(d){return color(+d.info.Unknown)});
-            };
+                    var hispanics = function(){
+                        d3.selectAll('.state').transition().duration(800).style('fill',function(d){return color(+d.info.Hispanic)});
+                    };
+                    var others = function(){
+                        d3.selectAll('.state').transition().duration(800).style('fill',function(d){return color(+d.info.Other)});
+                    };
+                    var unknowns = function(){
+                        d3.selectAll('.state').transition().duration(800).style('fill',function(d){return color(+d.info.Unknown)});
+                    };
 
 
-            d3.selectAll('#asian').on('change', asians);
-            d3.selectAll('#white').on('change', whites);
-            d3.selectAll('#africanamerican').on('change', afro_am);
-            d3.selectAll('#nativeamerican').on('change', native_am);
-            d3.selectAll('#pacificislander').on('change', pacisland);
-            d3.selectAll('#hispanic').on('change', hispanics);
-            d3.selectAll('#other').on('change', others);
-            d3.selectAll('#unknown').on('change', unknowns);
-        </script>
+                    d3.selectAll('#asian').on('change', asians);
+                    d3.selectAll('#white').on('change', whites);
+                    d3.selectAll('#africanamerican').on('change', afro_am);
+                    d3.selectAll('#nativeamerican').on('change', native_am);
+                    d3.selectAll('#pacificislander').on('change', pacisland);
+                    d3.selectAll('#hispanic').on('change', hispanics);
+                    d3.selectAll('#other').on('change', others);
+                    d3.selectAll('#unknown').on('change', unknowns);
+                </script>
+            </div>
+            <div id = "page-2-right" style="float: left; width: 20%;">Things To Keep In Mind</div>
         </div>
+
     </section>
 
     <section data-anchor="Page 3">
