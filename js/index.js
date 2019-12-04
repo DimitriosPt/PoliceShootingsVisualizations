@@ -88,6 +88,9 @@ console.log("All my_json ",my_json);
 
 function randomColor(){
     return '#0000FF';
+    //function randomColor(){
+    //     return '#'+(0x1000000+(Math.random())*0xffffff).toString(16).substr(1,6);
+    // }
 }
 
 function raceConverter(race){
