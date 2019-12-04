@@ -3,6 +3,9 @@
     stroke: #a9a9a9;
     stroke-width: 1;
 }
+#statesvg{
+    padding-left: 50px;
+}
 .state:hover{
     fill-opacity:0.5;
 }
@@ -43,18 +46,4 @@
 }
 #tooltip tr td:nth-child(2){
     text-align:center;
-}
-#spacer-div{
-    height: 600px;
-}
-
-
-.land {
-    fill: #fff;
-    stroke: #ccc;
-}
-
-.mapstate {
-    fill: #ccc;
-    stroke: #666;
 }
