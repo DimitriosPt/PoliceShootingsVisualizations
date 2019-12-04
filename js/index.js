@@ -327,8 +327,8 @@ my_json.forEach(function (person) {
 
 // This can control the size of the starburst
 // Size/state related variables
-var width = 900,
-    height = 900,
+var width = 600,
+    height = 600,
     outer_radius = width/2.5,
     arc_transition; // save current arc transition
 
@@ -365,8 +365,8 @@ var arc_generator = d3.svg.arc()
 var burst_group = d3.select('.chart')
                    .append('svg')
                    .attr({
-                     width: 600,
-                     height: 600
+                     width: width,
+                     height: height
                    })
                    .append('g')
                    .attr('transform', 'translate(' + width/2 + ',' + height/2 + ')')
