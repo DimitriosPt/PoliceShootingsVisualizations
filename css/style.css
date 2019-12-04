@@ -29,8 +29,8 @@ font-family: 'Montserrat', sans-serif;
   display: block;
   position: absolute;
   /*border-top: 5px solid transparent;
-  border-left: 10px solid transparent;
-  border-bottom: 5px solid transparent;*/
+  border-left: 10px solid transparent;*/
+  border-bottom: 5px solid transparent;
   justify-content: left;
   top: 21px;
   right: -5px;
@@ -47,7 +47,7 @@ font-family: 'Montserrat', sans-serif;
 
 .container .chart {
   width: 300px;
-  height: 300px;
+  height: 700px;
   align-self: normal;
   justify-content: left;
 }

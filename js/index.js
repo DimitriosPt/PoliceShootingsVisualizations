@@ -74,7 +74,7 @@ var my_json = (function () {
     $.ajax({
         'async': false,
         'global': false,
-        'url': "./data/shootings.json",
+        'url': "./data/shootings1.json",
         'dataType': "json",
         'success': function (data) {
             json = data;
@@ -239,8 +239,8 @@ console.log("Revised Shootings Test", revised_shootings);
 
 // This can control the size of the starburst
 // Size/state related variables
-var width = 650,
-    height = 650,
+var width = 500,
+    height = 500,
     outer_radius = width/2.5,
     arc_transition; // save current arc transition
 
