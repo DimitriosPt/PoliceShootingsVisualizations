@@ -57,17 +57,18 @@
 
 </style>
 <h1>
-    US States By Population By Race
+    Fatal Shootings By Race
 </h1>
 <script src="//d3js.org/d3.v3.min.js"></script>
 <script src="//d3js.org/topojson.v1.min.js"></script>
 
 <form>
-    <label><input type="radio" name="race" id="asian"> asian</label>
-    <label><input type="radio" name="race" id="white"> white</label>
+    <label><input type="radio" name="race" id="asian"> Asian</label>
+    <label><input type="radio" name="race" id="white"> White</label>
     <label><input type="radio" name="race" id="africanamerican"> african american</label>
-    <label><input type="radio" name="race" id="nativeamerican" checked> native american</label>
-    <label><input type="radio" name="race" id="pacificislander"> other</label>
+    <label><input type="radio" name="race" id="nativeamerican"> native american</label>
+    <label><input type="radio" name="race" id="hispanic"> Hispanic </label>
+    <label><input type="radio" name="race" id="other"> Other</label>
 </form>
 
 
@@ -81,17 +82,19 @@
 
 
     var color = d3.scale.linear()
-        .range(['white', 'red', 'fuchsia', 'purple','black']);
+        .range(['white', 'red']);
 
     var stuff = []
 
-    d3.tsv('data.tsv', function(data){
+    d3.csv('grouped_filtered.csv', function(data){
         stuff.push(data)
-        var scale = d3.extent(data, function(x){return +x.asian})
-        var scale = scale.concat(d3.extent(data, function(x){return +x.black}))
-        var scale = scale.concat(d3.extent(data, function(x){return +x.white}))
-        var scale = scale.concat(d3.extent(data, function(x){return +x.native}))
+        var scale = d3.extent(data, function(x){return +x.Asian})
+        var scale = scale.concat(d3.extent(data, function(x){return +x.Black}))
+        var scale = scale.concat(d3.extent(data, function(x){return +x.White}))
+        var scale = scale.concat(d3.extent(data, function(x){return +x.Native}))
         var scale = scale.concat(d3.extent(data, function(x){return +x.pacisland}))
+        var scale = scale.concat(d3.extent(data, function(x){return +x.Hispanic}))
+        var scale = scale.concat(d3.extent(data, function(x){return +x.Other}))
         color.domain(d3.extent(scale))
 
     });
@@ -144,23 +147,30 @@
     });
 
     var asians = function(){
-        d3.selectAll('.state').transition().duration(800).style('fill',function(d){return color(+d.info.asian)});
+        d3.selectAll('.state').transition().duration(800).style('fill',function(d){return color(+d.info.Asian)});
     };
 
     var whites = function(){
-        d3.selectAll('.state').transition().duration(800).style('fill',function(d){return color(+d.info.white)});
+        d3.selectAll('.state').transition().duration(800).style('fill',function(d){return color(+d.info.White)});
     };
 
     var afro_am = function(){
-        d3.selectAll('.state').transition().duration(800).style('fill',function(d){return color(+d.info.black)});
+        d3.selectAll('.state').transition().duration(800).style('fill',function(d){return color(+d.info.Black)});
     };
 
     var native_am = function(){
-        d3.selectAll('.state').transition().duration(800).style('fill',function(d){return color(+d.info.native)});
+        d3.selectAll('.state').transition().duration(800).style('fill',function(d){return color(+d.info.Native)});
     };
 
     var pacisland = function(){
         d3.selectAll('.state').transition().duration(800).style('fill',function(d){return color(+d.info.pacisland)});
+    };
+
+    var hispanics = function(){
+        d3.selectAll('.state').transition().duration(800).style('fill',function(d){return color(+d.info.Hispanic)});
+    };
+    var others = function(){
+        d3.selectAll('.state').transition().duration(800).style('fill',function(d){return color(+d.info.Other)});
     };
 
 
@@ -169,6 +179,8 @@
     d3.selectAll('#africanamerican').on('change', afro_am);
     d3.selectAll('#nativeamerican').on('change', native_am);
     d3.selectAll('#pacificislander').on('change', pacisland);
+    d3.selectAll('#hispanic').on('change', hispanics);
+    d3.selectAll('#other').on('change', others);
 
 </script>
 
