@@ -43,7 +43,7 @@
 
     </section>
     <section data-anchor="Page 2">
-        <container id = map-container>
+        <div id = map-container style="text-align: center">
         <div id="tooltip"></div><!-- div to hold tooltip. -->
 
 
@@ -61,10 +61,10 @@
             }
 
         </style>
-        <h1>
+        <h1 style="text-align: center">
             Fatal Shootings By Race
         </h1>
-        <form style="align-content: center">
+        <form style="text-align: center">
             <label><input type="radio" name="race" id="asian"> Asian</label>
             <label><input type="radio" name="race" id="white"> White</label>
             <label><input type="radio" name="race" id="africanamerican"> african american</label>
@@ -80,7 +80,8 @@
 
             var svg = d3.select("#map-container").append("svg")
                 .attr("width", 960)
-                .attr("height", 500);
+                .attr("height", 500)
+                .attr("align", "center");
 
             var color = d3.scale.linear()
                 .range(['white', 'red']);
@@ -188,8 +189,9 @@
             d3.selectAll('#other').on('change', others);
             d3.selectAll('#unknown').on('change', unknowns);
         </script>
-        </container>
+        </div>
     </section>
+
     <section data-anchor="Page 3">
         <div id="population-pie">
             <img src = "Static1.jpg" alt = "Fatal Shootings to Population Comparison">
