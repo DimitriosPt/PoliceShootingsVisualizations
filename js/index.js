@@ -90,29 +90,21 @@ console.log("All my_json ",my_json);
     //     return '#'+(0x1000000+(Math.random())*0xffffff).toString(16).substr(1,6);
     // }
 
-function getRandomColor(h, s, l, a) {
-    var hue = getRandomNumber(h[0], h[1]);
-    var saturation = getRandomNumber(s[0], s[1]);
-    var lightness = getRandomNumber(l[0], l[1]);
-    var alpha = getRandomNumber(a[0] * 100, a[1] * 100) / 100;
-  
-    return {
-      h: hue,
-      s: saturation,
-      l: lightness,
-      a: alpha,
-      hslaValue: getHSLAColor(hue, saturation, lightness, alpha)
+    function getRandomColor(color) {
+        var p = 1,
+            temp,
+            random = Math.random(),
+            result = '#';
+    
+        while (p < color.length) {
+            temp = parseInt(color.slice(p, p += 2), 16)
+            temp += Math.floor((255 - temp) * random);
+            result += temp.toString(16).padStart(2, '0');
+        }
+        return result;
     }
-  }
-  
-  function getRandomNumber(low, high) {
-    var r = Math.floor(Math.random() * (high - low + 1)) + low;
-    return r;
-  }
-
-  function getHSLAColor(h, s, l, a) {
-    return `hsl(${h}, ${s}%, ${l}%, ${a})`;
-  }  
+    
+    var color = '#044681';
 
 
 function raceConverter(race){
@@ -160,7 +152,7 @@ function colorConverter(race){
     if(race === null) {
         return "#000000"
     }
-    return getRandomColor([0, 65], [90, 100], [40, 90], [1, 1]);
+    
 }
 
 function armedConverter(armed){
@@ -176,7 +168,7 @@ function armedConverter(armed){
     if(armed === "toy weapon"){
         return "#33819E"
     }
-    return getRandomColor([0, 65], [90, 100], [50, 90], [1, 1]);
+    return "#000000";
 }
 
 function builder(){
@@ -189,7 +181,7 @@ function builder(){
 
         if(State === undefined){
             //console.log("State is ",my_json[i].state, i);
-            State = {name: my_json[i].state, color: getRandomColor([0, 65], [90, 100], [50, 90], [1, 1]), children:[]};
+            State = {name: my_json[i].state, color: getRandomColor(color), children:[]};
             output.children.push(State);
         }
 
