@@ -64,13 +64,14 @@
         <h1>
             Fatal Shootings By Race
         </h1>
-        <form>
+        <form style="align-content: center">
             <label><input type="radio" name="race" id="asian"> Asian</label>
             <label><input type="radio" name="race" id="white"> White</label>
             <label><input type="radio" name="race" id="africanamerican"> african american</label>
             <label><input type="radio" name="race" id="nativeamerican"> native american</label>
             <label><input type="radio" name="race" id="hispanic"> Hispanic </label>
             <label><input type="radio" name="race" id="other"> Other</label>
+            <label><input type="radio" name="race" id="unknown"> Unknown</label>
         </form>
 
         <script>
@@ -95,6 +96,7 @@
                 var scale = scale.concat(d3.extent(data, function(x){return +x.pacisland}))
                 var scale = scale.concat(d3.extent(data, function(x){return +x.Hispanic}))
                 var scale = scale.concat(d3.extent(data, function(x){return +x.Other}))
+                var scale = scale.concat(d3.extent(data, function(x){return +x.Unknown}))
                 color.domain(d3.extent(scale)) //scales the colors of each state to the number of
                 //cases in each state
             });
@@ -172,6 +174,9 @@
             var others = function(){
                 d3.selectAll('.state').transition().duration(800).style('fill',function(d){return color(+d.info.Other)});
             };
+            var unknowns = function(){
+                d3.selectAll('.state').transition().duration(800).style('fill',function(d){return color(+d.info.Unknown)});
+            };
 
 
             d3.selectAll('#asian').on('change', asians);
@@ -181,6 +186,7 @@
             d3.selectAll('#pacificislander').on('change', pacisland);
             d3.selectAll('#hispanic').on('change', hispanics);
             d3.selectAll('#other').on('change', others);
+            d3.selectAll('#unknown').on('change', unknowns);
         </script>
         </container>
     </section>
