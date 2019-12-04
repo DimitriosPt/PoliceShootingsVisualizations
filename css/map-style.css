@@ -48,3 +48,13 @@
     height: 600px;
 }
 
+
+.land {
+    fill: #fff;
+    stroke: #ccc;
+}
+
+.mapstate {
+    fill: #ccc;
+    stroke: #666;
+}
