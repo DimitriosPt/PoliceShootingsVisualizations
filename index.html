@@ -80,7 +80,6 @@
         .attr("width", 960)
         .attr("height", 500);
 
-
     var color = d3.scale.linear()
         .range(['white', 'red']);
 
@@ -95,8 +94,8 @@
         var scale = scale.concat(d3.extent(data, function(x){return +x.pacisland}))
         var scale = scale.concat(d3.extent(data, function(x){return +x.Hispanic}))
         var scale = scale.concat(d3.extent(data, function(x){return +x.Other}))
-        color.domain(d3.extent(scale))
-
+        color.domain(d3.extent(scale)) //scales the colors of each state to the number of
+                                        //cases in each state
     });
 
     getinfo = function(x){
