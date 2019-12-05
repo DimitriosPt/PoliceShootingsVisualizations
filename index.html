@@ -10,11 +10,12 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <link rel="stylesheet" type="text/css" href="css/style.css">
 	<link rel="stylesheet" type="text/css" href="css/map-style.css">
-    <script src ="js/pageable.js"></script>
+    <!--<script src ="js/pageable.js"></script> -->
 
     <script src="https://d3js.org/d3.v3.min.js"></script>
     <script src="//d3js.org/d3.v3.min.js"></script>
     <script src="//d3js.org/topojson.v1.min.js"></script>
+    <script src = "https://unpkg.com/pageable@latest/dist/pageable.min.js"></script>
 
 </head>
 
@@ -47,16 +48,19 @@
             <div id = "page-2-left" style="float: left; width: 20%;">
                 Key Observations
                 <ul>
-                    <li>California is consistently the state with the highest number of cases </li>
+                    <li>California is consistently the state with the highest number of cases</li>
                     <li>Texas and Florida also have a very high frequency of cases</li>
                     <li>Cases involving Asian victims seem to be primarily on the West Coast</li>
                     <li>Cases involving Hispanic victims seem to be much higher in states
                         that share a border with Mexico</li>
-                    <li>North and South Dakota are mysteriously absent from cases CHANGE WORDING</li>
+                    <li>Cases involving African American victims seem to be much higher near the
+                        East Coast and the South</li>
+                    <li>North and South Dakota have very few cases</li>
+                    <li>Washington seems to have cases across all races</li>
                 </ul>
 
             </div>
-            <div id = map-container style="text-align: center; padding-top: 20px; width: 60%">
+            <div id = map-container>
                 <div id="tooltip"></div><!-- div to hold tooltip. -->
 
 
@@ -263,7 +267,7 @@
     });
 
 </script>
-<script> new Pageable("#main_page")</script>
+
 <body>
 
 </body>
