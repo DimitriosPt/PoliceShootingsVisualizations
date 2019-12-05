@@ -52,7 +52,8 @@
 {
     height: auto;
     text-align: center;
-    padding-top: 50px;
+    padding-top: 5%;
+    width: 60%;
 }
 #page-2-left
 {
@@ -62,6 +63,7 @@
     border: 1px solid black;
     border-radius: 25px;
     line-height: 2;
+    margin-bottom: 3rem;
 }
 
 #page-2-right
@@ -77,10 +79,13 @@ ul {
     font-size: 18px;
     list-style-type: circle;
     display: list-item;
+
 }
 
 li{
-    margin-bottom: 10rem;
+    margin-bottom: 9rem;
     color: #cc0000;
     font-size-adjust: inherit;
+    list-style-position: inside;
 }
+
