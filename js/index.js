@@ -250,15 +250,6 @@ var arcs = burst_group.selectAll("path.ark")
         fade(arcs, 0.3, names, 'name'); 
 
         update_crumbs(d);
-
-		//console.log(names[0]);
-
-		d3.select("#name")
-      .text(names[0]);
-
-		d3.select("#explanation")
-      .style("visibility", "");
-		
       }
 	else{
 		var names = ['Shootings By State'];
