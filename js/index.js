@@ -16,16 +16,6 @@ let shootings = new Request("./data/policeShootingsJSON.json");
 * Hex: #FFDBAC
 *
 * */
-//Color generator
-Colors = {};
-Colors.random = function() {
-    var result;
-    var count = 0;
-    for (var prop in this.names)
-        if (Math.random() < 1/++count)
-            result = prop;
-    return result;
-};
 
 var my_json = (function () {
     var json = null;
@@ -40,11 +30,6 @@ var my_json = (function () {
     });
     return json;
 })();
-
-
-    //function randomColor(){
-    //     return '#'+(0x1000000+(Math.random())*0xffffff).toString(16).substr(1,6);
-    // }
 
     function getRandomColor(color) {
         var p = 1,
