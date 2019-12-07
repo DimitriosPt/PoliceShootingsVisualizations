@@ -1,39 +1,5 @@
-let data = {
-    "name":"States",
-    "color":"#FFF123",
-    "children":[
-        {"name": "California",
-            "color":"#006BB6",
-            "children": [{"name": "Black", "value": 10,"color":"#3D0C02"}]
-        },
-        {"name": "Nevada",
-            "color":"#00843D",
-            "children": [{"name": "Black", "value": 10,"color":"#3D0C02"}]
-        }]
-}
-console.log("Hard coded data",data);
+
 let shootings = new Request("./data/policeShootingsJSON.json");
-var newData = {
-    "name":"States",
-    "color":"#FFF123",
-    "children":[
-        {"name": "California",
-            "color":"#006BB6",
-            "children": [
-                {"name": "Black", "value": 10,"color":"#3D0C02",
-                    "children":[
-                        {"name": "Unarmed", "value": 8, "color": "#ff0000"},
-                        {"name": "Armed", "value": 1,  "color": "#00FF00"},
-                        {"name": "Mental", "value": 1,  "color": "#9B870C"}
-                    ]
-                },
-                {"name": "White", "value": 1,"color":"#FFE0BD"},
-                {"name": "Hispanic", "value": 1,"color":"#E0AC69"},
-                {"name": "Asian", "value": 1,"color":"#FFDBAC"}
-            ]
-        }
-    ]
-};
 
 /*
 * Color codes for the races
@@ -81,14 +47,7 @@ var my_json = (function () {
         }
     });
     return json;
-})();/*
-console.log("My Json Test")
-console.log(my_json);*/
-console.log("All my_json ",my_json);
-
-    //function randomColor(){
-    //     return '#'+(0x1000000+(Math.random())*0xffffff).toString(16).substr(1,6);
-    // }
+})();
 
     function getRandomColor(color) {
         var p = 1,
@@ -212,35 +171,15 @@ function builder(){
     return output;
 }
 
-console.log("Builder JSON",builder());
 data = builder();
-console.log("Data ", data);
-
-var revised_shootings = {
-    "name":"States",
-    "color":"#FFF123",
-    "children":[
-    {"name": "California",
-        "color":"#006BB6",
-        "children": [
-            {"name": "Black", "value": 10,"color":"#3D0C02"},
-            {"name": "White", "value": 1,"color":"#FFE0BD"},
-            {"name": "Hispanic", "value": 1,"color":"#E0AC69"},
-            {"name": "Asian", "value": 1,"color":"#FFDBAC"}
-        ]
-    },
-    ]
-};
-console.log("Revised Shootings Test", revised_shootings);
-
 
 //Using a fetch to read in the json file
 // May need to use this method when the data file is online
 
 // This can control the size of the starburst
 // Size/state related variables
-var width = 500,
-    height = 500,
+var width = 700,
+    height = 700,
     outer_radius = width/2.5,
     arc_transition; // save current arc transition
 

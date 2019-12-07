@@ -46,8 +46,8 @@ font-family: 'Montserrat', sans-serif;
 */
 
 .container .chart {
-  width: 300px;
-  height: 700px;
+  width: 500px;
+  height: 900px;
   align-self: normal;
   justify-content: left;
 }
