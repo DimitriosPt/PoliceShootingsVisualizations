@@ -1,39 +1,5 @@
-let data = {
-    "name":"States",
-    "color":"#FFF123",
-    "children":[
-        {"name": "California",
-            "color":"#006BB6",
-            "children": [{"name": "Black", "value": 10,"color":"#3D0C02"}]
-        },
-        {"name": "Nevada",
-            "color":"#00843D",
-            "children": [{"name": "Black", "value": 10,"color":"#3D0C02"}]
-        }]
-}
-console.log("Hard coded data",data);
+
 let shootings = new Request("./data/policeShootingsJSON.json");
-var newData = {
-    "name":"States",
-    "color":"#FFF123",
-    "children":[
-        {"name": "California",
-            "color":"#006BB6",
-            "children": [
-                {"name": "Black", "value": 10,"color":"#3D0C02",
-                    "children":[
-                        {"name": "Unarmed", "value": 8, "color": "#ff0000"},
-                        {"name": "Armed", "value": 1,  "color": "#00FF00"},
-                        {"name": "Mental", "value": 1,  "color": "#9B870C"}
-                    ]
-                },
-                {"name": "White", "value": 1,"color":"#FFE0BD"},
-                {"name": "Hispanic", "value": 1,"color":"#E0AC69"},
-                {"name": "Asian", "value": 1,"color":"#FFDBAC"}
-            ]
-        }
-    ]
-};
 
 /*
 * Color codes for the races
@@ -61,14 +27,6 @@ Colors.random = function() {
     return result;
 };
 
-
-//Reading in the CSV file
-/*
-d3.csv("./data/fatal-police-shootings-data.csv", function (data) {
-    console.log("d3 CSV", data);
-});*/
-var shoot;
-
 var my_json = (function () {
     var json = null;
     $.ajax({
@@ -81,10 +39,8 @@ var my_json = (function () {
         }
     });
     return json;
-})();/*
-console.log("My Json Test")
-console.log(my_json);*/
-console.log("All my_json ",my_json);
+})();
+
 
     //function randomColor(){
     //     return '#'+(0x1000000+(Math.random())*0xffffff).toString(16).substr(1,6);
@@ -103,7 +59,7 @@ console.log("All my_json ",my_json);
         }
         return result;
     }
-    
+
     var color = '#044681';
 
 
@@ -212,35 +168,15 @@ function builder(){
     return output;
 }
 
-console.log("Builder JSON",builder());
 data = builder();
-console.log("Data ", data);
-
-var revised_shootings = {
-    "name":"States",
-    "color":"#FFF123",
-    "children":[
-    {"name": "California",
-        "color":"#006BB6",
-        "children": [
-            {"name": "Black", "value": 10,"color":"#3D0C02"},
-            {"name": "White", "value": 1,"color":"#FFE0BD"},
-            {"name": "Hispanic", "value": 1,"color":"#E0AC69"},
-            {"name": "Asian", "value": 1,"color":"#FFDBAC"}
-        ]
-    },
-    ]
-};
-console.log("Revised Shootings Test", revised_shootings);
-
 
 //Using a fetch to read in the json file
 // May need to use this method when the data file is online
 
 // This can control the size of the starburst
 // Size/state related variables
-var width = 700,
-    height = 700,
+var width = 800,
+    height = 800,
     outer_radius = width/2.5,
     arc_transition; // save current arc transition
 
@@ -301,8 +237,8 @@ var arcs = burst_group.selectAll("path.ark")
     })
 	.style("font-size",function(d){if(d.depth==0){return "4em";}})
 
-	.attr('stroke', '#fff') // <-- THIS (for arc padding)
-    .attr('stroke-width', '1.2') // <-- THIS (for arc padding) Stroke controls the width of the line between the attributes
+	.attr('stroke', 'lightgray') // <-- THIS (for arc padding)
+    .attr('stroke-width', '1') // <-- THIS (for arc padding) Stroke controls the width of the line between the attributes
 	.text(function(d) { if (d.depth>0){return d.name;}else{return "Shootings Per State2";} })
     .on("click", click)
     .on('mouseover', function(d) {
@@ -311,15 +247,6 @@ var arcs = burst_group.selectAll("path.ark")
         fade(arcs, 0.3, names, 'name'); 
 
         update_crumbs(d);
-
-		//console.log(names[0]);
-
-		d3.select("#name")
-      .text(names[0]);
-
-		d3.select("#explanation")
-      .style("visibility", "");
-		
       }
 	else{
 		var names = ['Shootings By State'];
@@ -329,8 +256,6 @@ var arcs = burst_group.selectAll("path.ark")
 		.style("font-weight","bold","font-size","50px")
       .text(names[0]);
 
-		d3.select("#explanation")
-      .style("visibility", "");
 	}
     })
     .on('mouseout', function(d) {

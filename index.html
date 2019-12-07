@@ -321,9 +321,14 @@
                 <div id="page-4-writeup" style="padding-top: 140px; height: 40%; padding-left: 15px; padding-right: 15px;
                  text-align:center" >
                     <p style="line-height: 2">
-                        Here you are looking at the total shootings broken down by race and then overlayed with that
-                        races percentage of the population. Looking at the legend and referring it to the bar chart
-                        you can clearly see that when the data is scalled according to tha races percentage of the popularion
+                        The bar chart shows the demographic percentages of each state overlapped with the
+                        proportionality of people killed in that state.
+                        The chart is set up such that if the proportion of people shot in that state is greater than that
+                        demographics makeup of the population, the difference will be shown.
+                        Put simply, red on the chart shows a that a disproportionate amount of people of that
+                        race were killed by police relative to state population.
+                        Looking at the legend and referring it to the bar chart
+                        you can clearly see that when the data is scalled according to tha races percentage of the population
                         you are able to see the true impace of those shootings.
                     </p>
                 </div>
@@ -399,42 +404,47 @@
 
     </section>
     <section class="page" data-anchor="Timeline">
-        <div class='tableauPlaceholder' id='viz1575664763996' style='position: relative'>
-            <noscript><a href='#'><img alt=' '
-                                       src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Sh&#47;Shootingsovertime&#47;Dashboard1&#47;1_rss.png'
-                                       style='border: none'/></a></noscript>
-            <object class='tableauViz' style='display:none;'>
-                <param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F'/>
-                <param name='embed_code_version' value='3'/>
-                <param name='site_root' value=''/>
-                <param name='name' value='Shootingsovertime&#47;Dashboard1'/>
-                <param name='tabs' value='no'/>
-                <param name='toolbar' value='yes'/>
-                <param name='static_image'
-                       value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Sh&#47;Shootingsovertime&#47;Dashboard1&#47;1.png'/>
-                <param name='animate_transition' value='yes'/>
-                <param name='display_static_image' value='yes'/>
-                <param name='display_spinner' value='yes'/>
-                <param name='display_overlay' value='yes'/>
-                <param name='display_count' value='yes'/>
-                <param name='filter' value='publish=yes'/>
-            </object>
+        <div id="timeline-container">
+            <div class='tableauPlaceholder' id='viz1575664763996' style='position: relative'>
+                <noscript><a href='#'><img alt=' '
+                                           src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Sh&#47;Shootingsovertime&#47;Dashboard1&#47;1_rss.png'
+                                           style='border: none'/></a></noscript>
+                <object class='tableauViz' style='display:none;'>
+                    <param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F'/>
+                    <param name='embed_code_version' value='3'/>
+                    <param name='site_root' value=''/>
+                    <param name='name' value='Shootingsovertime&#47;Dashboard1'/>
+                    <param name='tabs' value='no'/>
+                    <param name='toolbar' value='yes'/>
+                    <param name='static_image'
+                           value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Sh&#47;Shootingsovertime&#47;Dashboard1&#47;1.png'/>
+                    <param name='animate_transition' value='yes'/>
+                    <param name='display_static_image' value='yes'/>
+                    <param name='display_spinner' value='yes'/>
+                    <param name='display_overlay' value='yes'/>
+                    <param name='display_count' value='yes'/>
+                    <param name='filter' value='publish=yes'/>
+                </object>
+            </div>
+            <script type='text/javascript'>
+                var divElement = document.getElementById('viz1575664763996');
+                var vizElement = divElement.getElementsByTagName('object')[0];
+                if (divElement.offsetWidth > 800) {
+                    vizElement.style.width = '1700px';
+                    vizElement.style.height = '827px';
+                } else if (divElement.offsetWidth > 500) {
+                    vizElement.style.width = '1700px';
+                    vizElement.style.height = '827px';
+                } else {
+                    vizElement.style.width = '100%';
+                    vizElement.style.height = '727px';
+                }
+                var scriptElement = document.createElement('script');
+                scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';
+                vizElement.parentNode.insertBefore(scriptElement, vizElement);                </script>
         </div>
-        <script type='text/javascript'>                    var divElement = document.getElementById('viz1575664763996');
-        var vizElement = divElement.getElementsByTagName('object')[0];
-        if (divElement.offsetWidth > 800) {
-            vizElement.style.width = '1700px';
-            vizElement.style.height = '827px';
-        } else if (divElement.offsetWidth > 500) {
-            vizElement.style.width = '1700px';
-            vizElement.style.height = '827px';
-        } else {
-            vizElement.style.width = '100%';
-            vizElement.style.height = '727px';
-        }
-        var scriptElement = document.createElement('script');
-        scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';
-        vizElement.parentNode.insertBefore(scriptElement, vizElement);                </script>
+    </section>
+
         <script>
     new Pageable('#main_page', {
         childSelector: "[data-anchor]",// CSS3 selector string for the pages
