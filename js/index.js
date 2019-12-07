@@ -180,8 +180,8 @@ data = builder();
 
 // This can control the size of the starburst
 // Size/state related variables
-var width = 700,
-    height = 700,
+var width = 800,
+    height = 800,
     outer_radius = width / 2.5,
     arc_transition; // save current arc transition
 
@@ -250,7 +250,7 @@ var arcs = burst_group.selectAll("path.ark")
     })
 
     .attr('stroke', 'lightgray') // <-- THIS (for arc padding)
-    .attr('stroke-width', '1.2') // <-- THIS (for arc padding) Stroke controls the width of the line between the attributes
+    .attr('stroke-width', '1') // <-- THIS (for arc padding) Stroke controls the width of the line between the attributes
     .text(function (d) {
         if (d.depth > 0) {
             return d.name;
