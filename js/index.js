@@ -239,8 +239,8 @@ console.log("Revised Shootings Test", revised_shootings);
 
 // This can control the size of the starburst
 // Size/state related variables
-var width = 500,
-    height = 500,
+var width = 700,
+    height = 700,
     outer_radius = width/2.5,
     arc_transition; // save current arc transition
 
