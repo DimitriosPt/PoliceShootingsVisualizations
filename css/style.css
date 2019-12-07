@@ -16,7 +16,6 @@ font-family: 'Montserrat', sans-serif;
   background: transparent;
   justify-content: center;
 }
-
 .crumbs .crumb {
   position: relative;
   display: inline-block;
@@ -29,6 +28,8 @@ font-family: 'Montserrat', sans-serif;
   content: '';
   display: block;
   position: absolute;
+  /*border-top: 5px solid transparent;
+  border-left: 10px solid transparent;*/
   border-bottom: 5px solid transparent;
   justify-content: left;
   top: 21px;
@@ -45,8 +46,8 @@ font-family: 'Montserrat', sans-serif;
 */
 
 .container .chart {
-  width: 500px;
-  height: 900px;
+  width: 700px;
+  height: 700px;
   align-self: normal;
   justify-content: left;
 }
