@@ -74,13 +74,6 @@
     border-radius: 25px;
 }
 
-ul {
-    margin-left:5px;
-    font-size: 18px;
-    list-style-type: circle;
-    display: list-item;
-}
-
 li{
     margin-bottom: 9rem;
     color: #cc0000;

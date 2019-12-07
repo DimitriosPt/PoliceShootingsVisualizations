@@ -48,10 +48,10 @@
                 <ul>The middle ring is divided by the race of the individuals who were shot within each state.</ul>
                 <ul>The outermost layer the weapons the victim was armed with (if any)</ul>
             <div style="display: inline-block">
-                <h3 style="color: red">Red indicates the victim was wielding a firearm.</h3>
-                <h3 style="color: dodgerblue">Blue indicates that the victim was unarmed</h3>
-                <h3 style="color: mediumseagreen"> Green indicates that the victim had a toy weapon</h3>
-                <h3 style="color: black">Black is used to represent every other kind of weapon.</h3>
+                <h3 style="color: #a70000; font-weight: bold">Red indicates the victim was wielding a firearm.</h3>
+                <h3 style="color: #0d45ab;font-weight: bold">Blue indicates that the victim was unarmed</h3>
+                <h3 style="color: #008902;font-weight: bold"> Green indicates that the victim had a toy weapon</h3>
+                <h3 style="color: black; font-weight: bold">Black is used to represent every other kind of weapon.</h3>
             </div>
         </div>
         <div class="container">
@@ -73,7 +73,7 @@
         <div id="page-2-container" style="width: 100%; height: 90%; display: flex; padding-top: 40px">
             <div id = "page-2-left" style="float: left; width: 20%;">
                 <h2 style="text-decoration: underline">Key Observations</h2>
-                <ul>
+                <ul style="list-style-position: inside">
                     <li style="padding-top: 5%">California is consistently the state with the highest number of cases </li>
                     <li>Texas and Florida also have a very high frequency of cases</li>
                     <li>Cases involving Asian victims seem to be primarily on the West Coast</li>
@@ -233,13 +233,15 @@
             </div>
             <div id = "page-2-right" style="float: left; width: 20%;">
                 <h2 style="text-decoration: underline">Things To Keep In Mind</h2>
-                    <li style="padding-top: 5%">California is consistently the state with the highest number of cases </li>
-                    <li>Texas and Florida also have a very high frequency of cases</li>
-                    <li>Cases involving Asian victims seem to be primarily on the West Coast</li>
-                    <li>Cases involving Hispanic victims seem to be much higher in states
-                        that share a border with Mexico</li>
-                    <li>Cases involving African American victims seem to be widely dispersed around the East Coast</li>
-                    <li>North and South Dakota have very few cases</li>
+                <ul>
+                    <li style="padding-top: 5%">California has the highest population in the entire country.</li>
+                    <li>Texas and Florida have the 2nd and 4th highest populations.</li>
+                    <li>This map shows only a raw count of shootings, not  a per capita average</li>
+                    <li>Despite the nature of this map being heavily biased against high population states,
+                        New York (the third highest population state) does not appear as much as CA,FL, and TX.</li>
+                    <li>This map scales its color against the highest density of killings.
+                    As such, it can make smaller demographics harder to determine.</li>
+                </ul>
 
             </div>
         </div>
@@ -327,9 +329,12 @@
                         demographics makeup of the population, the difference will be shown.
                         Put simply, red on the chart shows a that a disproportionate amount of people of that
                         race were killed by police relative to state population.
-                        Looking at the legend and referring it to the bar chart
-                        you can clearly see that when the data is scalled according to tha races percentage of the population
-                        you are able to see the true impace of those shootings.
+                    </p>
+
+                    <p style="line-height: 2">
+                        The pie charts compare the racial proportions of the entire United States Population(2018)
+                        versus the population breakdown of those shot and killed by police in 2019. If shootings
+                        were an evenly distributed event we would expect these two pie charts to look identical.
                     </p>
                 </div>
                 <div id="pie" style="height: 45%">
@@ -404,44 +409,69 @@
 
     </section>
     <section class="page" data-anchor="Timeline">
-        <div id="timeline-container">
-            <div class='tableauPlaceholder' id='viz1575664763996' style='position: relative'>
-                <noscript><a href='#'><img alt=' '
-                                           src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Sh&#47;Shootingsovertime&#47;Dashboard1&#47;1_rss.png'
-                                           style='border: none'/></a></noscript>
-                <object class='tableauViz' style='display:none;'>
-                    <param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F'/>
-                    <param name='embed_code_version' value='3'/>
-                    <param name='site_root' value=''/>
-                    <param name='name' value='Shootingsovertime&#47;Dashboard1'/>
-                    <param name='tabs' value='no'/>
-                    <param name='toolbar' value='yes'/>
-                    <param name='static_image'
-                           value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Sh&#47;Shootingsovertime&#47;Dashboard1&#47;1.png'/>
-                    <param name='animate_transition' value='yes'/>
-                    <param name='display_static_image' value='yes'/>
-                    <param name='display_spinner' value='yes'/>
-                    <param name='display_overlay' value='yes'/>
-                    <param name='display_count' value='yes'/>
-                    <param name='filter' value='publish=yes'/>
-                </object>
-            </div>
-            <script type='text/javascript'>
-                var divElement = document.getElementById('viz1575664763996');
-                var vizElement = divElement.getElementsByTagName('object')[0];
-                if (divElement.offsetWidth > 800) {
-                    vizElement.style.width = '1700px';
-                    vizElement.style.height = '827px';
-                } else if (divElement.offsetWidth > 500) {
-                    vizElement.style.width = '1700px';
-                    vizElement.style.height = '827px';
-                } else {
+        <h1 style="height: 10%; padding-left: 20%">Age of Death Across State and Time</h1>
+        <div id="timeline-container" style="display: flex">
+            <div style="width: 69%">
+                <div class='tableauPlaceholder' id='viz1575664763996' style='position: relative'>
+                    <noscript><a href='#'><img alt=' '
+                                               src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Sh&#47;Shootingsovertime&#47;Dashboard1&#47;1_rss.png'
+                                               style='border: none'/></a></noscript>
+                    <object class='tableauViz' style='display:none;'>
+                        <param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F'/>
+                        <param name='embed_code_version' value='3'/>
+                        <param name='site_root' value=''/>
+                        <param name='name' value='Shootingsovertime&#47;Dashboard1'/>
+                        <param name='tabs' value='no'/>
+                        <param name='toolbar' value='yes'/>
+                        <param name='static_image'
+                               value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Sh&#47;Shootingsovertime&#47;Dashboard1&#47;1.png'/>
+                        <param name='animate_transition' value='yes'/>
+                        <param name='display_static_image' value='yes'/>
+                        <param name='display_spinner' value='yes'/>
+                        <param name='display_overlay' value='yes'/>
+                        <param name='display_count' value='yes'/>
+                        <param name='filter' value='publish=yes'/>
+                    </object>
+                </div>
+                <script type='text/javascript'>
+                    var divElement = document.getElementById('viz1575664763996');
+                    var vizElement = divElement.getElementsByTagName('object')[0];
+                    // if (divElement.offsetWidth > 800) {
+                    //     vizElement.style.width = '1700px';
+                    //     vizElement.style.height = '827px';
+                    // } else if (divElement.offsetWidth > 500) {
+                    //     vizElement.style.width = '1700px';
+                    //     vizElement.style.height = '827px';
+                    // }
+                    // else {
                     vizElement.style.width = '100%';
-                    vizElement.style.height = '727px';
-                }
-                var scriptElement = document.createElement('script');
-                scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';
-                vizElement.parentNode.insertBefore(scriptElement, vizElement);                </script>
+                    vizElement.style.height = '800px';
+                    // }
+                    var scriptElement = document.createElement('script');
+                    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';
+                    vizElement.parentNode.insertBefore(scriptElement, vizElement);                </script>
+            </div>
+
+            <div id="text-containter" style="float: left; width: 20%; text-align: center; padding-top: 7%">
+
+                <h3>
+                    The timeline shows when people were killed by the month, their age, and the state they were killed in.
+                </h3>
+                <br>
+                <h3>
+                    Larger circles mean more people of the same race and age were killed in that state that month.
+                </h3>
+                <br>
+                <h3>
+                    The visualization allows you to filter by race,
+                    allowing you to observe trends for single races at a time.
+                </h3>
+                <br>
+                <h3>
+                    Data is available for every month from March 2015 to October 2019.
+                </h3>
+
+            </div>
         </div>
     </section>
 
@@ -494,4 +524,5 @@
 <body>
 
 </body>
+</main>
 </html>
