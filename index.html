@@ -40,16 +40,19 @@
         <div class="crumbs">
             <!-- Crumbs dynamically appended -->
         </div>
-        <div id = "page-1-left" style="float: right; width: 20%;">
-            <li>What you are looking at</li>
-            <ul>
-                <p>Here is a visual representation of fatal police shootings since 2015. </p>
-                <p>The size of the segment represents the relative percentage of the total fatal police shootings.</p>
-                <p>The inner circle represents each of the fifty states.</p>
-                <p>The intermediate ring represents the race of the individuals who were shot.</p>
-                <p>The outer layer indicates the type of weapons these individuals had in their possession when they were
-                shot.</p>
-            </ul>
+        <div id = "page-1-right" style="float: right; width: 40%;">
+            <h2>Zoomable Sunburst Display</h2>
+                <ul>A compact visual of all people shot between 2015 and 2019</ul>
+                <ul>The size of the segment represents the relative percentage of the total fatal police shootings.</ul>
+                <ul>The innermost ring groups the fifty states.</ul>
+                <ul>The middle ring is divided by the race of the individuals who were shot within each state.</ul>
+                <ul>The outermost layer the weapons the victim was armed with (if any)</ul>
+            <div style="display: inline-block">
+                <h3 style="color: red">Red indicates the victim was wielding a firearm.</h3>
+                <h3 style="color: dodgerblue">Blue indicates that the victim was unarmed</h3>
+                <h3 style="color: mediumseagreen"> Green indicates that the victim had a toy weapon</h3>
+                <h3 style="color: black">Black is used to represent every other kind of weapon.</h3>
+            </div>
         </div>
         <div class="container">
             <div class="chart">
@@ -234,10 +237,10 @@
     </section>
 
     <section class="page" data-anchor="Bubbles" style="background-color: #333333">
-        <div id="bubble-container" style="height: 90%; width: 100%">
+        <div id="bubble-container" style="height: 100%; width: 100%">
             <div class='tableauPlaceholder' id='viz1575599612009' style='position: relative'><noscript><a href='#'><img alt=' '
-                                                                                                                        src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Sh&#47;ShotBubble&#47;Dashboard1&#47;1_rss.png'
-                                                                                                                        style='border: none' /></a></noscript><object class='tableauViz' style='display:none;'>
+                src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Sh&#47;ShotBubble&#47;Dashboard1&#47;1_rss.png'
+                 style='border: none' /></a></noscript><object class='tableauViz' style='display:none;'>
                 <param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' />
                 <param name='embed_code_version' value='3' />
                 <param name='site_root' value='' />
@@ -270,8 +273,9 @@
 
     </section>
     <section class="page" data-anchor="Page 4">
-        <div id="page-4-container" style="width: 100%; height: 99%; display: flex" >
+        <div id="page-4-container" style="width: 100%; height: 100%; display: flex" >
             <div id="bar-chart-container" style="float: left; width: 50%; bottom: 0px">
+                <div style="height: 3%"></div>
                 <div class='tableauPlaceholder' id='viz1575592827643' style='position: relative'>
                     <noscript><a href='#'><img alt=' '
                                                src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Po&#47;PolieSchootings&#47;Sheet1&#47;1_rss.png'
@@ -377,6 +381,7 @@
             var vizElement = divElement.getElementsByTagName('object')[0]; 
             vizElement.style.width = '100%';
             vizElement.style.height = '100%';
+            vizElement.style.bottom = '0px';
             var scriptElement = document.createElement('script'); 
             scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js'; 
             vizElement.parentNode.insertBefore(scriptElement, vizElement);                
