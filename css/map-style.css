@@ -62,8 +62,6 @@
     background: rgba(112, 107, 103, 0.2);
     border: 1px solid black;
     border-radius: 25px;
-    line-height: 2;
-    margin-bottom: 3rem;
 }
 
 #page-2-right
@@ -75,7 +73,6 @@
 }
 
 li{
-    margin-bottom: 9rem;
     color: #cc0000;
     font-size-adjust: inherit;
     list-style-position: inside;
