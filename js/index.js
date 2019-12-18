@@ -160,8 +160,8 @@ data = builder();
 
 // This can control the size of the starburst
 // Size/state related variables
-var width = 800,
-    height = 800,
+var width = 600,
+    height = 600,
     outer_radius = width/2.5,
     arc_transition; // save current arc transition
 
