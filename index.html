@@ -9,9 +9,9 @@
     <link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css'>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <link rel="stylesheet" type="text/css" href="css/style.css">
-	<link rel="stylesheet" type="text/css" href="css/map-style.css">
     <link rel="stylesheet" type="text/css" href="css/map-style.css">
-    <script src ="js/pageable.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/map-style.css">
+    <script src="js/pageable.js"></script>
 
     <script src="https://d3js.org/d3.v3.min.js"></script>
     <script src="//d3js.org/d3.v3.min.js"></script>
@@ -20,8 +20,9 @@
 </head>
 
 <script src="js/d3.min.js"></script>
-<main id ="main_page">
-    <section class="page" data-anchor="Splash Page" style="background-image:linear-gradient(darkgrey, lightgray, black);" >
+<main id="main_page">
+    <section class="page" data-anchor="Splash Page"
+             style="background-image:linear-gradient(darkgrey, lightgray, black);">
         <div style="height: 100%; background-size: cover">
             <div id="splash-text" style="text-align: center; padding: 17%; font-size: 32px; font-weight: bolder">
                 Since 2015,
@@ -36,7 +37,7 @@
         </div>
 
     </section>
-    <section class="page" data-anchor="Page 1" style="background-color: lightgray">
+    <section class="page" data-anchor="Sunburst" style="background-color: lightgray">
         <header>
             <h1>Exploring Police Shootings By State and Race</h1>
         </header>
@@ -49,7 +50,7 @@
                 <span id="name"></span>
                 <br/>
             </div>
-            <div id = "page-1-right" style="float: right; width: 40%;">
+            <div id="page-1-right" style="float: right; width: 40%;">
                 <h2>Zoomable Sunburst Display</h2>
                 <ul>A compact visual of all people shot between 2015 and 2019</ul>
                 <ul>The size of the segment represents the relative percentage of the total fatal police shootings.</ul>
@@ -60,12 +61,11 @@
                     <h3 style="color: #a70000; font-weight: bold">Red indicates the victim was wielding a firearm.</h3>
                     <h3 style="color: #008902;font-weight: bold"> Green indicates that the victim was unarmed.</h3>
                     <h3 style="color: #0d45ab;font-weight: bold">Blue indicates that the victim had a toy weapon.</h3>
-                    <h3 style="color: black; font-weight: bold">Black is used to represent every other kind of weapon.</h3>
+                    <h3 style="color: black; font-weight: bold">Black is used to represent every other kind of
+                        weapon.</h3>
                 </div>
             </div>
         </div>
-
-
 
         <script src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/22878/d3.min.js'></script>
         <script src="js/index.js"></script>
@@ -76,7 +76,7 @@
     <section class="page" data-anchor="race-map">
         <div id="page-2-container" style="width: 100%; height: 90%; display: flex; padding-top: 40px">
 
-            <div id = map-container style="text-align: center; padding-top: 20px; width: 75%">
+            <div id=map-container style="text-align: center; padding-top: 20px; width: 75%">
                 <div id="tooltip"></div><!-- div to hold tooltip. -->
 
 
@@ -121,26 +121,44 @@
 
                     var stuff = []
 
-                    d3.csv('grouped_filtered.csv', function(data){
+                    d3.csv('grouped_filtered.csv', function (data) {
                         stuff.push(data)
-                        var scale = d3.extent(data, function(x){return +x.Asian})
-                        var scale = scale.concat(d3.extent(data, function(x){return +x.Black}))
-                        var scale = scale.concat(d3.extent(data, function(x){return +x.White}))
-                        var scale = scale.concat(d3.extent(data, function(x){return +x.Native}))
-                        var scale = scale.concat(d3.extent(data, function(x){return +x.pacisland}))
-                        var scale = scale.concat(d3.extent(data, function(x){return +x.Hispanic}))
-                        var scale = scale.concat(d3.extent(data, function(x){return +x.Other}))
-                        var scale = scale.concat(d3.extent(data, function(x){return +x.Unknown}))
+                        var scale = d3.extent(data, function (x) {
+                            return +x.Asian
+                        })
+                        var scale = scale.concat(d3.extent(data, function (x) {
+                            return +x.Black
+                        }))
+                        var scale = scale.concat(d3.extent(data, function (x) {
+                            return +x.White
+                        }))
+                        var scale = scale.concat(d3.extent(data, function (x) {
+                            return +x.Native
+                        }))
+                        var scale = scale.concat(d3.extent(data, function (x) {
+                            return +x.pacisland
+                        }))
+                        var scale = scale.concat(d3.extent(data, function (x) {
+                            return +x.Hispanic
+                        }))
+                        var scale = scale.concat(d3.extent(data, function (x) {
+                            return +x.Other
+                        }))
+                        var scale = scale.concat(d3.extent(data, function (x) {
+                            return +x.Unknown
+                        }))
                         color.domain(d3.extent(scale)) //scales the colors of each state to the number of
                         //cases in each state
                     });
 
-                    getinfo = function(x){
-                        return stuff[0].filter(function(z){return String(z.id) == x});
+                    getinfo = function (x) {
+                        return stuff[0].filter(function (z) {
+                            return String(z.id) == x
+                        });
                     };
 
 
-                    d3.json("us.json", function(error, us) {
+                    d3.json("us.json", function (error, us) {
                         if (error) throw error;
 
 // this part makes the full map
@@ -153,9 +171,15 @@
 // modify the json so it has the info you need in the actual object
 
                         var all_states = topojson.feature(us, us.objects.states).features;
-                        all_states.forEach(function(d){d.info = getinfo(d.id)[0]});
-                        var all_states = all_states.filter(function(d){return d.info != undefined});
-                        all_states.forEach(function(d){d.state = d.info.state});
+                        all_states.forEach(function (d) {
+                            d.info = getinfo(d.id)[0]
+                        });
+                        var all_states = all_states.filter(function (d) {
+                            return d.info != undefined
+                        });
+                        all_states.forEach(function (d) {
+                            d.state = d.info.state
+                        });
 
 //make the states
 
@@ -170,46 +194,64 @@
                             .data(all_states)
                             .enter()
                             .append("svg:text")
-                            .text(function(d){return d.info.state})
-                            .attr("x", function(d){
+                            .text(function (d) {
+                                return d.info.state
+                            })
+                            .attr("x", function (d) {
                                 return path.centroid(d)[0];
                             })
-                            .attr("y", function(d){
-                                return  path.centroid(d)[1];
+                            .attr("y", function (d) {
+                                return path.centroid(d)[1];
                             })
-                            .attr("text-anchor","middle")
-                            .attr('font-size','6pt');
+                            .attr("text-anchor", "middle")
+                            .attr('font-size', '6pt');
 
                     });
 
-                    var asians = function(){
-                        d3.selectAll('.state').transition().duration(800).style('fill',function(d){return color(+d.info.Asian)});
+                    var asians = function () {
+                        d3.selectAll('.state').transition().duration(800).style('fill', function (d) {
+                            return color(+d.info.Asian)
+                        });
                     };
 
-                    var whites = function(){
-                        d3.selectAll('.state').transition().duration(800).style('fill',function(d){return color(+d.info.White)});
+                    var whites = function () {
+                        d3.selectAll('.state').transition().duration(800).style('fill', function (d) {
+                            return color(+d.info.White)
+                        });
                     };
 
-                    var afro_am = function(){
-                        d3.selectAll('.state').transition().duration(800).style('fill',function(d){return color(+d.info.Black)});
+                    var afro_am = function () {
+                        d3.selectAll('.state').transition().duration(800).style('fill', function (d) {
+                            return color(+d.info.Black)
+                        });
                     };
 
-                    var native_am = function(){
-                        d3.selectAll('.state').transition().duration(800).style('fill',function(d){return color(+d.info.Native)});
+                    var native_am = function () {
+                        d3.selectAll('.state').transition().duration(800).style('fill', function (d) {
+                            return color(+d.info.Native)
+                        });
                     };
 
-                    var pacisland = function(){
-                        d3.selectAll('.state').transition().duration(800).style('fill',function(d){return color(+d.info.pacisland)});
+                    var pacisland = function () {
+                        d3.selectAll('.state').transition().duration(800).style('fill', function (d) {
+                            return color(+d.info.pacisland)
+                        });
                     };
 
-                    var hispanics = function(){
-                        d3.selectAll('.state').transition().duration(800).style('fill',function(d){return color(+d.info.Hispanic)});
+                    var hispanics = function () {
+                        d3.selectAll('.state').transition().duration(800).style('fill', function (d) {
+                            return color(+d.info.Hispanic)
+                        });
                     };
-                    var others = function(){
-                        d3.selectAll('.state').transition().duration(800).style('fill',function(d){return color(+d.info.Other)});
+                    var others = function () {
+                        d3.selectAll('.state').transition().duration(800).style('fill', function (d) {
+                            return color(+d.info.Other)
+                        });
                     };
-                    var unknowns = function(){
-                        d3.selectAll('.state').transition().duration(800).style('fill',function(d){return color(+d.info.Unknown)});
+                    var unknowns = function () {
+                        d3.selectAll('.state').transition().duration(800).style('fill', function (d) {
+                            return color(+d.info.Unknown)
+                        });
                     };
 
 
@@ -224,16 +266,18 @@
                 </script>
             </div>
 
-            <div id = "page-2-right" style="float: left; width: 20%">
+            <div id="page-2-right" style="float: left; width: 20%">
                 <h2 style="text-decoration: underline">Things To Keep In Mind</h2>
                 <ul style="display: inline-block">
                     <li style="padding-top: 5%">California has the highest population in the entire country.</li>
                     <li>Texas and Florida have the 2nd and 4th highest populations.</li>
-                    <li>This map shows only a raw count of shootings, not  a per capita average</li>
+                    <li>This map shows only a raw count of shootings, not a per capita average</li>
                     <li>Despite the nature of this map being heavily biased against high population states,
-                        New York (the third highest population state) does not appear as much as CA,FL, and TX.</li>
+                        New York (the third highest population state) does not appear as much as CA,FL, and TX.
+                    </li>
                     <li>This map scales its color against the highest density of killings.
-                    As such, it can make smaller demographics harder to determine.</li>
+                        As such, it can make smaller demographics harder to determine.
+                    </li>
                 </ul>
             </div>
         </div>
@@ -242,23 +286,27 @@
 
     <section class="page" data-anchor="Bubbles" style="background-color: #333333">
         <div id="bubble-container" style="height: 100%; width: 100%">
-            <div class='tableauPlaceholder' id='viz1575599612009' style='position: relative'><noscript><a href='#'><img alt=' '
-                src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Sh&#47;ShotBubble&#47;Dashboard1&#47;1_rss.png'
-                 style='border: none' /></a></noscript><object class='tableauViz' style='display:none;'>
-                <param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' />
-                <param name='embed_code_version' value='3' />
-                <param name='site_root' value='' />
-                <param name='name' value='ShotBubble&#47;Dashboard1' />
-                <param name='tabs' value='no' />
-                <param name='toolbar' value='yes' />
-                <param name='static_image'
-                       value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Sh&#47;ShotBubble&#47;Dashboard1&#47;1.png' />
-                <param name='animate_transition' value='yes' />
-                <param name='display_static_image' value='yes' />
-                <param name='display_spinner' value='yes' />
-                <param name='display_overlay' value='yes' />
-                <param name='display_count' value='yes' />
-                <param name='filter' value='publish=yes' /></object></div>
+            <div class='tableauPlaceholder' id='viz1575599612009' style='position: relative'>
+                <noscript><a href='#'><img alt=' '
+                                           src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Sh&#47;ShotBubble&#47;Dashboard1&#47;1_rss.png'
+                                           style='border: none'/></a></noscript>
+                <object class='tableauViz' style='display:none;'>
+                    <param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F'/>
+                    <param name='embed_code_version' value='3'/>
+                    <param name='site_root' value=''/>
+                    <param name='name' value='ShotBubble&#47;Dashboard1'/>
+                    <param name='tabs' value='no'/>
+                    <param name='toolbar' value='yes'/>
+                    <param name='static_image'
+                           value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Sh&#47;ShotBubble&#47;Dashboard1&#47;1.png'/>
+                    <param name='animate_transition' value='yes'/>
+                    <param name='display_static_image' value='yes'/>
+                    <param name='display_spinner' value='yes'/>
+                    <param name='display_overlay' value='yes'/>
+                    <param name='display_count' value='yes'/>
+                    <param name='filter' value='publish=yes'/>
+                </object>
+            </div>
             <script type='text/javascript'>
                 var divElement = document.getElementById('viz1575599612009');
                 var vizElement = divElement.getElementsByTagName('object')[0];
@@ -268,7 +316,7 @@
                 vizElement.style.minHeight = '587px';
                 //vizElement.style.maxHeight = '887px';
                 vizElement.style.height = '100%';
-                vizElement.style.backgroundColor= "#333333";
+                vizElement.style.backgroundColor = "#333333";
                 var scriptElement = document.createElement('script');
                 scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';
                 vizElement.parentNode.insertBefore(scriptElement, vizElement);
@@ -276,35 +324,39 @@
         </div>
 
     </section>
-    
+
     <section class="page" data-anchor="DarkMap" style="background-color: #2b2b2b">
-        <div class='tableauPlaceholder' id='viz1575609917128' style='position: relative'><noscript><a href='#'><img alt=' '
-                        src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Pe&#47;PerCapita_15756098470750&#47;Sheet1&#47;1_rss.png'
-                        style='border: none' /></a></noscript><object class='tableauViz' style='display:none;'>
-                <param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' />
-                <param name='embed_code_version' value='3' />
-                <param name='site_root' value='' />
-                <param name='name' value='PerCapita_15756098470750&#47;Sheet1' />
-                <param name='tabs' value='no' />
-                <param name='toolbar' value='yes' />
+        <div class='tableauPlaceholder' id='viz1575609917128' style='position: relative'>
+            <noscript><a href='#'><img alt=' '
+                                       src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Pe&#47;PerCapita_15756098470750&#47;Sheet1&#47;1_rss.png'
+                                       style='border: none'/></a></noscript>
+            <object class='tableauViz' style='display:none;'>
+                <param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F'/>
+                <param name='embed_code_version' value='3'/>
+                <param name='site_root' value=''/>
+                <param name='name' value='PerCapita_15756098470750&#47;Sheet1'/>
+                <param name='tabs' value='no'/>
+                <param name='toolbar' value='yes'/>
                 <param name='static_image'
-                    value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Pe&#47;PerCapita_15756098470750&#47;Sheet1&#47;1.png' />
-                <param name='animate_transition' value='yes' />
-                <param name='display_static_image' value='yes' />
-                <param name='display_spinner' value='yes' />
-                <param name='display_overlay' value='yes' />
-                <param name='display_count' value='yes' />
-                <param name='filter' value='publish=yes' /></object></div>
+                       value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Pe&#47;PerCapita_15756098470750&#47;Sheet1&#47;1.png'/>
+                <param name='animate_transition' value='yes'/>
+                <param name='display_static_image' value='yes'/>
+                <param name='display_spinner' value='yes'/>
+                <param name='display_overlay' value='yes'/>
+                <param name='display_count' value='yes'/>
+                <param name='filter' value='publish=yes'/>
+            </object>
+        </div>
         <script
-            type='text/javascript'>                    
-            var divElement = document.getElementById('viz1575609917128'); 
-            var vizElement = divElement.getElementsByTagName('object')[0]; 
+                type='text/javascript'>
+            var divElement = document.getElementById('viz1575609917128');
+            var vizElement = divElement.getElementsByTagName('object')[0];
             vizElement.style.width = '100%';
             vizElement.style.height = '100%';
             vizElement.style.bottom = '0px';
-            var scriptElement = document.createElement('script'); 
-            scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js'; 
-            vizElement.parentNode.insertBefore(scriptElement, vizElement);                
+            var scriptElement = document.createElement('script');
+            scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';
+            vizElement.parentNode.insertBefore(scriptElement, vizElement);
         </script>
 
     </section>
@@ -345,7 +397,7 @@
                     // }
                     // else {
                     vizElement.style.width = '100%';
-                    vizElement.style.height = '800px';
+                    vizElement.style.height = '100%';
                     // }
                     var scriptElement = document.createElement('script');
                     scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';
@@ -355,7 +407,8 @@
             <div id="text-containter" style="float: left; width: 20%; text-align: center; padding-top: 7%">
 
                 <h3>
-                    The timeline shows when people were killed by the month, their age, and the state they were killed in.
+                    The timeline shows when people were killed by the month, their age, and the state they were killed
+                    in.
                 </h3>
                 <br>
                 <h3>
@@ -375,7 +428,7 @@
         </div>
     </section>
     <section class="page" data-anchor="Discrepencies">
-        <div id="page-4-container" style="width: 100%; height: 100%; display: flex" >
+        <div id="page-4-container" style="width: 100%; height: 100%; display: flex">
             <div id="bar-chart-container" style="float: left; width: 50%; bottom: 0px">
                 <div style="height: 3%"></div>
                 <div class='tableauPlaceholder' id='viz1575592827643' style='position: relative'>
@@ -411,11 +464,12 @@
             </div>
             <div id="write-and-pie" style="float: left; width: 50%;">
                 <div id="page-4-writeup" style="padding-top: 140px; height: 40%; padding-left: 15px; padding-right: 15px;
-                 text-align:center" >
+                 text-align:center">
                     <p style="line-height: 2">
                         The bar chart shows the demographic percentages of each state overlapped with the
                         proportionality of people killed in that state.
-                        The chart is set up such that if the proportion of people shot in that state is greater than that
+                        The chart is set up such that if the proportion of people shot in that state is greater than
+                        that
                         demographics makeup of the population, the difference will be shown.
                         Put simply, red on the chart shows a that a disproportionate amount of people of that
                         race were killed by police relative to state population.
@@ -428,9 +482,9 @@
                     </p>
 
                     <p style="line-height: 2"></p>
-                        Given that there are many discrepencies between the percentage of shootings by races to their
-                        respective populations and that the pies charts are so drastically disproportionate it is clear
-                        that, at some level, race is playing a determinate role.
+                    Given that there are many discrepencies between the percentage of shootings by races to their
+                    respective populations and that the pies charts are so drastically disproportionate it is clear
+                    that, at some level, race is playing a determinate role.
                     </p>
                 </div>
                 <div id="pie" style="height: 45%">
@@ -473,54 +527,54 @@
             </div>
         </div>
     </section>
-        <script>
-    new Pageable('#main_page', {
-        childSelector: "[data-anchor]",// CSS3 selector string for the pages
-        anchors: [], // define the page anchors
-        pips: true, // display the pips
-        animation: 300, // the duration in ms of the scroll animation
-        delay: 0, // the delay in ms before the scroll animation starts
-        throttle: 50, // the interval in ms that the resize callback is fired
-        orientation: "vertical", // or horizontal
-        swipeThreshold: 50, // swipe / mouse drag distance (px) before firing the page change event
-        freeScroll: false, // allow manual scrolling when dragging instead of automatically moving to next page
-        navPrevEl: false, // define an element to use to scroll to the previous page (CSS3 selector string or Element reference)
-        navNextEl: false, // define an element to use to scroll to the next page (CSS3 selector string or Element reference)
-        infinite: false, // enable infinite scrolling (from 0.4.0)
-        events: {
-            wheel: true, // enable / disable mousewheel scrolling
-            mouse: true, // enable / disable mouse drag scrolling
-            touch: true, // enable / disable touch / swipe scrolling
-            keydown: true, // enable / disable keyboard navigation
-        },
-        easing: function(currentTime, startPos, endPos, interval) {
-            // the easing function used for the scroll animation
-            return -endPos * (currentTime /= interval) * (currentTime - 2) + startPos;
-        },
-        onInit: function() {
-            // do something when the instance is ready
-        },
-        onUpdate: function() {
-            // do something when the instance updates
-        },
-        onBeforeStart: function() {
-            // do something before scrolling begins
-        },
-        onStart: function() {
-            // do something when scrolling begins
-        },
-        onScroll: function() {
-            // do something during scroll
-        },
-        onFinish: function() {
-            // do something when scrolling ends
-        },
-    });
+    <script>
+        new Pageable('#main_page', {
+            childSelector: "[data-anchor]",// CSS3 selector string for the pages
+            anchors: [], // define the page anchors
+            pips: true, // display the pips
+            animation: 300, // the duration in ms of the scroll animation
+            delay: 0, // the delay in ms before the scroll animation starts
+            throttle: 50, // the interval in ms that the resize callback is fired
+            orientation: "vertical", // or horizontal
+            swipeThreshold: 50, // swipe / mouse drag distance (px) before firing the page change event
+            freeScroll: false, // allow manual scrolling when dragging instead of automatically moving to next page
+            navPrevEl: false, // define an element to use to scroll to the previous page (CSS3 selector string or Element reference)
+            navNextEl: false, // define an element to use to scroll to the next page (CSS3 selector string or Element reference)
+            infinite: false, // enable infinite scrolling (from 0.4.0)
+            events: {
+                wheel: true, // enable / disable mousewheel scrolling
+                mouse: true, // enable / disable mouse drag scrolling
+                touch: true, // enable / disable touch / swipe scrolling
+                keydown: true, // enable / disable keyboard navigation
+            },
+            easing: function (currentTime, startPos, endPos, interval) {
+                // the easing function used for the scroll animation
+                return -endPos * (currentTime /= interval) * (currentTime - 2) + startPos;
+            },
+            onInit: function () {
+                // do something when the instance is ready
+            },
+            onUpdate: function () {
+                // do something when the instance updates
+            },
+            onBeforeStart: function () {
+                // do something before scrolling begins
+            },
+            onStart: function () {
+                // do something when scrolling begins
+            },
+            onScroll: function () {
+                // do something during scroll
+            },
+            onFinish: function () {
+                // do something when scrolling ends
+            },
+        });
 
-</script>
-<script> new Pageable("#main_page")</script>
-<body>
+    </script>
+    <script> new Pageable("#main_page")</script>
+    <body>
 
-</body>
+    </body>
 </main>
 </html>
