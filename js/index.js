@@ -195,15 +195,18 @@ var arc_generator = d3.svg.arc()
 
 
 // Append a centered group for the burst to be added to
-var burst_group = d3.select('.chart')
-                   .append('svg')
-                   .attr({
-                     width: width,
-                     height: height
-                   })
-                   .append('g')
-                   .attr('transform', 'translate(' + width/2 + ',' + height/2 + ')')
-					.text("place");
+var burst_group = d3.select('#container')
+    .append('svg')
+    .attr({
+        width: width,
+        height: height
+    })
+    .attr("preserveAspectRatio", "xMinYMin meet")
+    .attr("viewbox", "0 0 600 600")
+    .classed("svg-content", true)
+    .append('g')
+    .attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')')
+    .text("place");
 
 d3.select(".total").text("Shootings Per State1").style("font-size", "40px");
 

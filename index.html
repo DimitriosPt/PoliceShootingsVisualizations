@@ -43,29 +43,30 @@
         <div class="crumbs">
             <!-- Crumbs dynamically appended -->
         </div>
-        <div id = "page-1-right" style="float: right; width: 40%;">
-            <h2>Zoomable Sunburst Display</h2>
+
+        <div id="container" class="svg-container">
+            <div id="explanation" style="visibility: hidden;">
+                <span id="name"></span>
+                <br/>
+            </div>
+            <div id = "page-1-right" style="float: right; width: 40%;">
+                <h2>Zoomable Sunburst Display</h2>
                 <ul>A compact visual of all people shot between 2015 and 2019</ul>
                 <ul>The size of the segment represents the relative percentage of the total fatal police shootings.</ul>
                 <ul>The innermost ring groups the fifty states.</ul>
                 <ul>The middle ring is divided by the race of the individuals who were shot within each state.</ul>
                 <ul>The outermost layer the weapons the victim was armed with (if any)</ul>
-            <div style="display: inline-block">
-                <h3 style="color: #a70000; font-weight: bold">Red indicates the victim was wielding a firearm.</h3>
-                <h3 style="color: #008902;font-weight: bold"> Green indicates that the victim was unarmed.</h3>
-                <h3 style="color: #0d45ab;font-weight: bold">Blue indicates that the victim had a toy weapon.</h3>
-                <h3 style="color: black; font-weight: bold">Black is used to represent every other kind of weapon.</h3>
-            </div>
-        </div>
-        <div class="container">
-            <div class="chart">
-                <div id="explanation" style="visibility: hidden;">
-                    <center><span id="name"></span></center>
-                    <br/>
-
+                <div style="display: inline-block">
+                    <h3 style="color: #a70000; font-weight: bold">Red indicates the victim was wielding a firearm.</h3>
+                    <h3 style="color: #008902;font-weight: bold"> Green indicates that the victim was unarmed.</h3>
+                    <h3 style="color: #0d45ab;font-weight: bold">Blue indicates that the victim had a toy weapon.</h3>
+                    <h3 style="color: black; font-weight: bold">Black is used to represent every other kind of weapon.</h3>
                 </div>
             </div>
         </div>
+
+
+
         <script src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/22878/d3.min.js'></script>
         <script src="js/index.js"></script>
 

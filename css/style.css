@@ -35,14 +35,25 @@ font-family: 'Montserrat', sans-serif;
   top: 21px;
   right: -5px;
 }
-
-.container .chart {
-  width: 700px;
-  height: 700px;
-  align-self: normal;
-  justify-content: left;
+#container
+{
+  display: inline-block;
 }
-
+.svg-container  {
+  padding-top: 100px;
+  display: inline-block;
+  position: relative;
+  width: 100%;
+  padding-bottom: 100%;
+  vertical-align: top;
+  overflow: hidden;
+}
+.svg-content {
+  display: inline-block;
+  position: absolute;
+  top: 10%;
+  left: 20%;
+}
 /*********************
  SVG Elements styling 
 *********************/
