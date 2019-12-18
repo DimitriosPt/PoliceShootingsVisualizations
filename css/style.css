@@ -51,7 +51,7 @@ font-family: 'Montserrat', sans-serif;
 .svg-content {
   display: inline-block;
   position: absolute;
-  top: 3%;
+  top: 0;
   left: 17%;
 }
 /*********************
