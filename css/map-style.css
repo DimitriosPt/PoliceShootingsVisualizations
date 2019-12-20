@@ -73,6 +73,8 @@
 }
 
 li{
+    display: list-item;
+    list-style-position: inside;
     color: #cc0000;
     font-size-adjust: inherit;
     list-style-position: inside;
